@@ -1,0 +1,973 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <title>Cadastro de Voluntários - Voluntários do Bem</title>
+  <link rel="icon" href="Imagens/nerdcon_favicon.ico" type="image/x-icon">
+  <link href="https://fonts.googleapis.com/css2?family=Oxanium:wght@300;400;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+
+  
+
+<style>
+  body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: #f8f9fa;
+    margin: 0;
+    padding: 0;
+    color: #333;
+  }
+   
+header {
+  background-color: #008000;
+  height: 140px; /* altura fixa do espaço verde */
+  padding: 0 5vw;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+  position: sticky;
+  top: 0;
+  z-index: 999;
+}
+    .logo img {
+      max-height: 180px;
+      border-radius: 30%;
+      top: 10%;
+    }
+    .logo img:hover {
+  transform: scale(1.05);
+}
+    nav ul {
+      list-style: none;
+      display: flex;
+      gap: 20px;
+    }
+
+    nav a {
+      color: #fff;
+      text-decoration: none;
+      font-weight: 600;
+      transition: opacity 0.3s ease;
+      font-size: 20px;
+    }
+
+    nav a:hover {
+      opacity: 0.8;
+      color: #000000; 
+    }
+
+    nav a:hover,
+    nav a:focus {
+      border-bottom-color: var(--branco);
+    }
+
+    /* Hero */
+    .hero {
+      max-width: 1100px;
+      margin: 3rem auto 5rem;
+      padding: 0 2rem;
+      text-align: center;
+      
+    }
+
+    .hero img {
+      width: 100%;
+      max-height: 480px;
+      object-fit: cover;
+      border-radius: 8px;
+      box-shadow: 0 10px 20px rgb(0 0 0 / 0.1);
+      margin-bottom: 2rem;
+      border:  2px solid; 
+  border-color:  #008000;
+    }
+
+    .hero-text h1 {
+      font-size: 2.25rem;
+      font-weight: 700;
+      color: var(--azul-primario);
+      margin-bottom: 1.5rem;
+      line-height: 1.2;
+    }
+
+    .hero-buttons {
+      display: flex;
+      justify-content: center;
+      gap: 1.5rem;
+      flex-wrap: wrap;
+    }
+  main {
+    max-width: 600px;
+    margin: 3rem auto;
+    background-color: #0e6424;
+    padding: 2rem 2.5rem;
+    border-radius: 12px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+  }
+  h1, h2 {
+    text-align: center;
+    margin-bottom: 1rem;
+    color: #ffffff;
+  }
+  label {
+    font-weight: 600;
+    display: block;
+    margin-top: 1rem;
+    margin-bottom: 0.4rem;
+  }
+  input[type=number], select {
+    width: 100%;
+    padding: 12px 10px;
+    font-size: 1rem;
+    border-radius: 8px;
+    border: 1px solid #ccc;
+  }
+  .payment-methods {
+    display: flex;
+    gap: 1rem;
+    margin-top: 2rem;
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+  .btn-method {
+    flex: 1 1 120px;
+    padding: 1rem;
+    border-radius: 10px;
+    border: none;
+    font-weight: 700;
+    cursor: pointer;
+    color: white;
+    font-size: 1.1rem;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+    transition: transform 0.2s ease, box-shadow 0.3s ease;
+  }
+  .btn-method:hover,
+  .btn-method:focus {
+    transform: scale(1.05);
+    box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+    outline: none;
+  }
+  .btn-mercado {
+    background: #00a650;
+  }
+  .btn-paypal {
+    background: #003087;
+  }
+  .btn-pix {
+    background: #EAB308;
+    color: #222;
+  }
+  .btn-pix:disabled {
+    background: #ccc;
+    cursor: not-allowed;
+    color: #666;
+  }
+  /* Modal */
+  .modal-bg {
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.6);
+    display: none;
+    justify-content: center;
+    align-items: center;
+    z-index: 1500;
+  }
+  .modal-bg.active {
+    display: flex;
+  }
+  .modal-content {
+    background: white;
+    border-radius: 12px;
+    padding: 2rem;
+    max-width: 400px;
+    width: 90%;
+    text-align: center;
+    position: relative;
+  }
+  .modal-content img {
+    max-width: 250px;
+    margin-bottom: 1rem;
+  }
+  .modal-content p {
+    margin-bottom: 1rem;
+    font-weight: 600;
+  }
+  .modal-content button {
+    background: #005bac;
+    color: white;
+    padding: 0.8rem 1.4rem;
+    border: none;
+    border-radius: 8px;
+    font-size: 1rem;
+    cursor: pointer;
+    font-weight: 600;
+    transition: background 0.3s ease;
+  }
+  .modal-content button:hover {
+    background: #003d7a;
+  }
+  .modal-close {
+    position: absolute;
+    top: 10px;
+    right: 15px;
+    background: transparent;
+    border: none;
+    font-size: 1.5rem;
+    cursor: pointer;
+    color: #999;
+    transition: color 0.3s ease;
+  }
+  .modal-close:hover {
+    color: #333;
+  }
+  /* Aviso de mensagem */
+  #mensal-pix-alert {
+    background: #fff3cd;
+    color: #856404;
+    border: 1px solid #ffeeba;
+    border-radius: 8px;
+    padding: 12px 15px;
+    margin-top: 1.5rem;
+    text-align: center;
+    font-weight: 600;
+    display: none;
+  }
+
+      /* Estilos base do nav */
+nav ul {
+  list-style: none;
+  display: flex;
+  gap: 1.5rem;
+  margin: 0;
+  padding: 0;
+}
+
+/* Botão hamburger - inicialmente escondido */
+#menu-toggle {
+  display: none;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  width: 28px;   /* Menor largura */
+  height: 24px;  /* Menor altura */
+  position: fixed; /* fixo para ficar no topo */
+  right: 20px; /* botão à direita */
+  z-index: 1100;
+  padding: 0;
+}
+
+/* Linhas do hamburger */
+.hamburger,
+.hamburger::before,
+.hamburger::after {
+  content: "";
+  display: block;
+  background-color: white;
+  height: 3px;
+  border-radius: 3px;
+  position: absolute;
+  width: 100%;
+  transition: all 0.3s ease;
+}
+
+/* Linha central */
+.hamburger {
+  top: 50%;
+  left: 0;
+  transform: translateY(-50%);
+}
+
+/* Linha de cima */
+.hamburger::before {
+  top: 7px;
+  left: 0;
+}
+
+/* Linha de baixo */
+.hamburger::after {
+  bottom: 7px;
+  left: 0;
+}
+
+/* Quando ativo, muda a cor das linhas, sem transformar em X */
+#menu-toggle.active .hamburger,
+#menu-toggle.active .hamburger::before,
+#menu-toggle.active .hamburger::after {
+  background-color: #f10f0f; /* amarelo bonito */
+}
+
+/* Estilos mobile */
+/* Menu lateral mobile */
+@media (max-width: 768px) {
+  nav ul {
+    display: none; /* esconde o menu padrão */
+    flex-direction: column;
+    background-color: #005bac;
+    position: fixed;
+    top: 60px; /* altura do header */
+    right: 0;
+    width: 200px;
+    height: auto; /* ajusta a altura ao conteúdo */
+    max-height: calc(100vh - 60px); /* não ultrapassa a tela */
+    padding-top: 0.5rem;
+    padding-bottom: 0.5rem;
+    box-shadow: -3px 0 8px rgba(0,0,0,0.2);
+    overflow-y: auto; /* scroll caso ultrapasse altura da tela */
+    border-radius: 0 0 0 10px; /* cantinho arredondado só na lateral esquerda */
+    z-index: 1000;
+  }
+
+  nav ul.show {
+    display: flex;
+  }
+
+  nav ul li a {
+    color: white;
+    padding: 1rem 1.5rem;
+    display: block;
+    font-weight: 600;
+    font-size: 1.1rem;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+    transition: background-color 0.3s ease;
+  }
+
+  nav ul li a:hover,
+  nav ul li a:focus {
+    background-color: #008000;
+    outline: none;
+  }
+
+  /* Mostrar o botão hamburger no mobile */
+  #menu-toggle {
+    display: block;
+  }
+}
+
+form {
+  background: #1e1e1e;
+  padding: 2.5rem 3rem;
+  border-radius: 16px;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.7);
+  max-width: 600px;
+  margin: 3rem auto;
+  color: #eee;
+  font-family: 'Poppins', sans-serif;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+form fieldset {
+  border: none;
+  margin-bottom: 2rem;
+}
+
+form legend {
+  font-weight: 700;
+  font-size: 1.75rem;
+  margin-bottom: 1.25rem;
+  color: #fff;
+  text-transform: uppercase;
+  letter-spacing: 1.1px;
+  border-bottom: 2px solid #ffffff;
+  padding-bottom: 0.3rem;
+}
+
+form label {
+  display: block;
+  margin-bottom: 0.4rem;
+  font-weight: 500;
+  font-size: 1rem;
+  color: #ddd;
+}
+
+form input[type="text"],
+form input[type="email"],
+form input[type="tel"],
+form select,
+form textarea {
+  width: 100%;
+  padding: 0.65rem 1rem;
+  border-radius: 8px;
+  border: 1px solid #444;
+  background: #2a2a2a;
+  color: #eee;
+  font-size: 1rem;
+  transition: border-color 0.3s, background-color 0.3s;
+  font-family: 'Poppins', sans-serif;
+}
+
+form input[type="text"]:focus,
+form input[type="email"]:focus,
+form input[type="tel"]:focus,
+form select:focus,
+form textarea:focus {
+  outline: none;
+  border-color: #ffffff;
+  background: #222;
+  color: #fff;
+}
+
+form textarea {
+  min-height: 120px;
+  resize: vertical;
+}
+
+form label input[type="checkbox"] {
+  margin-right: 0.5rem;
+  width: 18px;
+  height: 18px;
+  vertical-align: middle;
+}
+
+form label a {
+  color: #ffffff;
+  text-decoration: underline;
+  transition: color 0.3s;
+}
+
+form label a:hover,
+form label a:focus {
+  color: #ffffff;
+}
+
+form > label {
+  display: flex;
+  align-items: center;
+  font-size: 0.9rem;
+  color: #ccc;
+  margin-bottom: 2rem;
+  user-select: none;
+}
+
+form button.btn {
+  display: block;
+  background-color: #ffffff;
+  color: #121212;
+  font-weight: 700;
+  font-size: 1.2rem;
+  padding: 0.85rem 0;
+  width: 100%;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  box-shadow: 0 6px 15px rgba(255, 255, 255, 0.7);
+  transition: background-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+form button.btn:hover,
+form button.btn:focus {
+  background-color: #ffffff;
+  box-shadow: 0 8px 20px rgba(255, 255, 255, 0.85);
+}
+
+/* ==== SEÇÃO ENDEREÇO E MAPA ==== */
+
+.contato-mapa-endereco {
+  display: flex;
+  gap: 2rem;
+  max-width: 1100px;
+  margin: 3rem auto;
+  background: #1f1f1f;
+  border-radius: 16px;
+  padding: 2.5rem 3rem;
+  box-shadow: 0 12px 36px rgba(0,0,0,0.6);
+  color: #eee;
+  flex-wrap: wrap;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.card-endereco {
+  flex: 1 1 320px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 1.8rem;
+}
+
+.card-endereco h3 {
+  font-size: 2.25rem;
+  margin-bottom: 1.2rem;
+  color: #ffffff;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1.2px;
+}
+
+.info-item {
+  display: flex;
+  align-items: center;
+  gap: 1.2rem;
+  font-size: 1.15rem;
+  color: #ccc;
+  font-weight: 500;
+  transition: color 0.3s ease;
+}
+
+.info-item i {
+  font-size: 2.2rem;
+  color: #ffffff;
+  flex-shrink: 0;
+  transition: color 0.3s ease;
+}
+
+.info-item:hover {
+  color: #ffffff;
+}
+
+.info-item:hover i {
+  color: #ffffff;
+}
+
+.card-mapa {
+  flex: 2 1 500px;
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.8);
+  min-height: 320px;
+  transition: box-shadow 0.3s ease;
+}
+
+.card-mapa iframe {
+  border-radius: 16px;
+  width: 100%;
+  height: 100%;
+  min-height: 320px;
+  border: none;
+  display: block;
+}
+
+/* Modo claro */
+
+body.light-mode form {
+  background: #dbdada;
+  color: #222;
+  box-shadow: 0 8px 24px rgba(0,0,0,0.1);
+}
+
+body.light-mode form legend {
+  color: #222;
+  border-color: #ffffff;
+}
+
+body.light-mode form label,
+body.light-mode form > label {
+  color: #444;
+}
+
+body.light-mode form input,
+body.light-mode form select,
+body.light-mode form textarea {
+  background: #413f3f;
+  color: #ffffff;
+  border: 1px solid #ccc;
+}
+
+body.light-mode form input:focus,
+body.light-mode form select:focus,
+body.light-mode form textarea:focus {
+  border-color: #ffffff;
+  background: #202020;
+  color: #ffffff;
+}
+
+body.light-mode form label a {
+  color: #000000;
+}
+
+body.light-mode form label a:hover,
+body.light-mode form label a:focus {
+  color: #ffffff;
+}
+
+body.light-mode form button.btn {
+  background-color: #fafafa;
+  color: #000000;
+  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.7);
+}
+
+body.light-mode form button.btn:hover,
+body.light-mode form button.btn:focus {
+  background-color: #ffffff;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.85);
+}
+
+body.light-mode .contato-mapa-endereco {
+  background: #f7f7f7;
+  color: #222;
+  box-shadow: 0 12px 36px rgba(0,0,0,0.12);
+}
+
+body.light-mode .card-endereco h3 {
+  color: #333;
+}
+
+body.light-mode .info-item {
+  color: #555;
+}
+
+body.light-mode .info-item i {
+  color: #000000;
+}
+
+body.light-mode .info-item:hover {
+  color: #000000;
+}
+
+body.light-mode .info-item:hover i {
+  color: #000000;
+}
+
+body.light-mode .card-mapa {
+  box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+}
+
+/* Responsividade */
+
+@media (max-width: 900px) {
+  form {
+    max-width: 100%;
+    padding: 1.5rem 2rem;
+    margin: 2rem 1rem;
+  }
+
+  .contato-mapa-endereco {
+    flex-direction: column;
+    padding: 2rem 1rem;
+  }
+
+  .card-endereco,
+  .card-mapa {
+    flex: 1 1 100%;
+  }
+
+  .card-mapa {
+    min-height: 280px;
+  }
+}
+
+@media (max-width: 480px) {
+  form legend {
+    font-size: 1.3rem;
+  }
+  
+  form button.btn {
+    font-size: 1rem;
+    padding: 0.7rem 0;
+  }
+}
+
+
+    /* Botão WhatsApp fixo */
+    .whatsapp-button {
+      position: fixed;
+      bottom: 90px;
+      right: 20px;
+      background-color: #008000;
+      color: white;
+      font-size: 28px;
+      width: 55px;
+      height: 55px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 1000;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+      transition: background-color 0.3s ease;
+      text-decoration: none;
+    }
+
+    .whatsapp-button:hover {
+      background-color: #0e6424;
+      text-decoration: none;
+    }
+
+    /* Botão toggle tema */
+    #theme-toggle {
+      position: fixed;
+      bottom: 24px;
+      right: 24px;
+      background: #008000;
+      color: #fff;
+      border: none;
+      font-size: 1.3rem;
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      box-shadow: 0 0 12px rgba(0,0,0,0.4);
+      z-index: 9999;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: background-color 0.3s ease;
+    }
+
+    #theme-toggle:hover,
+    #theme-toggle:focus {
+      background-color: #0e6424;
+      outline: none;
+    }
+
+    /* Tema escuro simples */
+    html[data-theme='dark'] body {
+      background-color: #121212;
+      color: #e0e0e0;
+    }
+
+    html[data-theme='dark'] header {
+      background-color: #008000;;
+      box-shadow: none;
+    }
+
+    html[data-theme='dark'] nav a {
+      color: #e0e0e0;
+    }
+
+    html[data-theme='dark'] main {
+      background-color: #008000;
+      color: #fff;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.5);
+    }
+
+    html[data-theme='dark'] form {
+      background-color: #1c1c1c;
+      border-color: #008000;
+     
+    }
+
+    html[data-theme='dark'] form label {
+      color: #ffffff;
+    }
+
+    html[data-theme='dark'] form input,
+    html[data-theme='dark'] form select,
+    html[data-theme='dark'] form textarea {
+      background-color: #585858;
+      color: #ffffff;
+      border-color: #008000;;
+    }
+
+    html[data-theme='dark'] form input:focus,
+    html[data-theme='dark'] form select:focus,
+    html[data-theme='dark'] form textarea:focus {
+      box-shadow: 0 0 8px #000000;
+      border-color: #66a3ff;
+      background-color: #797a7a;
+    }
+
+    html[data-theme='dark'] form button[type="submit"] {
+      background-color: #008000;
+   
+    }
+
+    html[data-theme='dark'] form button[type="submit"]:hover,
+    html[data-theme='dark'] form button[type="submit"]:focus {
+      background-color: #0e6424;
+  
+    }
+
+    html[data-theme='dark'] footer {
+      background-color: #008000;
+      color: #cfd8ff;
+      box-shadow: none;
+    }
+    footer {
+    background-color: #008000;
+    width: 100vw;
+    padding: 20px;
+    color: #fff;
+    display: flex;
+    flex-direction: column;    /* organiza os itens em coluna */
+    align-items: center;       /* centraliza horizontalmente */
+    gap: 15px;                 /* espaço entre logo/texto e redes sociais */
+    font-size: 18px;
+}
+
+footer .é-tudo-nosso {
+    display: flex;
+    align-items: center;       /* centraliza verticalmente texto em relação à logo */
+    gap: 10px;                 /* espaço entre logo e texto */
+}
+
+footer .é-tudo-nosso img {
+    max-height: 100px;
+    border-radius: 30%;
+}
+
+footer .é-tudo-nosso p {
+    margin: 0;
+}
+
+footer .redes-sociais {
+    display: flex;
+    gap: 15px;
+}
+
+footer .redes-sociais a {
+    color: #fff;
+    font-size: 32px;           /* ícones maiores */
+    text-decoration: none;
+    transition: transform 0.3s;
+}
+
+footer .redes-sociais a:hover {
+    transform: scale(1.2);     /* efeito hover */
+    color: #000000;
+}
+
+</style>
+</head>
+<body>
+<header>
+  <div class="logo">
+    <a href="index.html"><img src="Imagens/tudonossologo.png" alt="É tudo nosso" /></a>
+  </div>
+
+  <!-- Botão Hamburger -->
+ <button id="menu-toggle" aria-label="Abrir menu">
+  <span class="hamburger"></span>
+</button>
+
+  <nav id="nav-menu">
+    <ul>
+      <li><a href="index.html">Início</a></li>
+      <li><a href="index.html#sobre">Sobre</a></li>
+      <li><a href="#">Ações Sociais</a></li>
+      <li><a href="doacao.html">Doações</a></li>
+      <li><a href="voluntariado.html">Voluntariado</a></li>
+      <li><a href="contato.html">Contato</a></li>
+    </ul>
+  </nav>
+</header>
+<form action="espacotudonosso@gmail.com" method="post" enctype="text/plain">
+  <fieldset>
+    <legend>Seus Dados</legend>
+
+    <label for="nome">Nome</label>
+    <input type="text" id="nome" name="Nome" placeholder="Seu nome" required />
+
+    <label for="email">E-mail</label>
+    <input type="email" id="email" name="E-mail" placeholder="seu@email.com" required />
+
+    <label for="telefone">Telefone</label>
+    <input type="tel" id="telefone" name="Telefone" placeholder="(00) 00000-0000" pattern="\(\d{2}\) \d{4,5}-\d{4}" />
+  </fieldset>
+
+  <fieldset>
+    <legend>Sua Mensagem</legend>
+
+    <label for="assunto">Assunto</label>
+    <select id="assunto" name="Assunto" required>
+      <option value="" disabled selected>Selecione um assunto</option>
+      <option value="Orçamento">Orçamento</option>
+      <option value="Dúvidas">Dúvidas</option>
+      <option value="Suporte">Suporte</option>
+      <option value="Outros">Outros</option>
+    </select>
+
+    <label for="mensagem">Mensagem</label>
+    <textarea id="mensagem" name="Mensagem" placeholder="Escreva sua mensagem..." maxlength="1000" required></textarea>
+  </fieldset>
+
+  <label>
+    <input type="checkbox" name="consentimento" required />
+  Eu concordo com a  <a href="/politica-de-privacidade" target="_blank"> Política de Privacidade</a>.
+  </label>
+
+  <button type="submit" class="btn">Enviar</button>
+</form>
+  
+<section class="contato-mapa-endereco container">
+  <div class="card-endereco">
+    <h3>Nosso Endereço</h3>
+    <div class="info-item">
+      <i class="fas fa-map-marker-alt"></i>
+      <p>Rua Aristides Pires de Andrade, 92, Itapecerica de Serra, SP, Brazil</p>
+    </div>
+    <div class="info-item">
+      <i class="fas fa-phone"></i>
+      <p>(11) 99563-7530</p>
+    </div>
+    <div class="info-item">
+      <i class="fas fa-envelope"></i>
+      <p>espacotudonosso@gmail.com</p>
+    </div>
+  </div>
+  <div class="card-mapa">
+    <iframe 
+      src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3656.938188460063!2d-46.84200348494922!3d-23.71429988467214!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x94ce50bb5c8ce983%3A0x2d26e57632a00e45!2sR.%20Clotilde%20de%20Louro%2C%20743%20-%20Vila%20Louro%2C%20Embu-Gua%C3%A7u%20-%20SP%2C%2006900-185!5e0!3m2!1spt-BR!2sbr!4v1688123456789!5m2!1spt-BR!2sbr" 
+      width="100%" height="300" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+  </div>
+</section>
+
+
+  
+<footer>
+  <div class="é-tudo-nosso">
+    <img src="imagens/tudonossologo.png" alt="">
+    <p>&copy; É Tudo Nosso — Todos os direitos reservados.</p>
+  </div>
+  <div class="redes-sociais">
+    <a href="https://www.instagram.com/espacoetudonosso" target="_blank"><i class="fab fa-instagram"></i></a>
+    <a href="https://https://www.facebook.com/tudonossosim" target="_blank"><i class="fab fa-facebook"></i></a>
+  </div>
+</footer>
+
+
+  <!-- Botão WhatsApp fixo -->
+  <a href="https://wa.me/5598999999999" target="_blank" rel="noopener" class="whatsapp-button" aria-label="Contato pelo WhatsApp">
+    <i class="fab fa-whatsapp"></i>
+  </a>
+
+  <!-- Botão toggle tema -->
+  <button id="theme-toggle" aria-label="Alternar tema claro e escuro" title="Alternar tema">
+    <i class="fas fa-moon"></i>
+  </button>
+
+  <script>
+    // Menu Mobile
+    const menuToggle = document.getElementById('menu-toggle');
+    const navLinks = document.querySelector('nav ul');
+
+    menuToggle.addEventListener('click', () => {
+      navLinks.classList.toggle('show');
+      menuToggle.classList.toggle('active');
+      if(navLinks.classList.contains('show')) {
+        menuToggle.setAttribute('aria-label', 'Fechar menu');
+      } else {
+        menuToggle.setAttribute('aria-label', 'Abrir menu');
+      }
+    });
+
+    // Tema Claro/Escuro
+    const themeToggle = document.getElementById('theme-toggle');
+    const html = document.documentElement;
+
+    function updateIcon() {
+      if (html.getAttribute('data-theme') === 'dark') {
+        themeToggle.innerHTML = '<i class="fas fa-sun"></i>'; // ícone sol para escuro
+      } else {
+        themeToggle.innerHTML = '<i class="fas fa-moon"></i>'; // ícone lua para claro
+      }
+    }
+
+    themeToggle.addEventListener('click', () => {
+      const currentTheme = html.getAttribute('data-theme');
+      const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+      html.setAttribute('data-theme', newTheme);
+      localStorage.setItem('theme', newTheme);
+      updateIcon();
+    });
+
+    // Ao carregar, aplicar tema salvo no localStorage (ou padrão dark)
+    const savedTheme = localStorage.getItem('theme');
+    if (savedTheme) {
+      html.setAttribute('data-theme', savedTheme);
+    } else {
+      html.setAttribute('data-theme', 'dark');
+    }
+    updateIcon();
+  </script>
+</body>
+</html>

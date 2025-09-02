@@ -1,0 +1,1395 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>É Tudo nosso</title>
+  <link rel="icon" href="Imagens/nerdcon_favicon.ico" type="image/x-icon">
+  <link href="https://fonts.googleapis.com/css2?family=Oxanium:wght@300;400;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+
+  <style>
+    /* Reset e fonte */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Poppins', sans-serif;
+    }
+
+    /* Cores principais - base ONU */
+    :root {
+      --azul-primario:  #008000;
+      --azul-claro: #fae7e6;
+      --cinza-claro: #d3d5d8;
+      --cinza-medio: #000000;
+      --cinza-escuro: #000000; /* texto preto no modo claro */
+      --texto-escuro: #2c3e50;
+      --branco: #fff;
+      --botao-bg: #0066cc;
+      --botao-bg-hover: #004a99;
+    }
+
+    html[data-theme='dark'] {
+      --azul-primario:  #008000;
+      --azul-claro: #fae7e6;
+      --cinza-claro: #1c1c1c;
+      --cinza-medio: #ffffff;
+      --cinza-escuro: #e0e0e0; /* texto claro no modo escuro */
+      --texto-escuro: #f5f5f5;
+      --branco: #fffcfc;
+      --botao-bg: #004a99;
+      --botao-bg-hover: #662900;
+      background-color: var(--cinza-claro);
+      color: var(--texto-escuro);
+    }
+
+    body {
+      background-color: var(--cinza-claro);
+      color: var(--texto-escuro);
+      line-height: 1.6;
+      font-size: 16px;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+
+    a {
+      color: var(--azul-primario);
+      text-decoration: none;
+      transition: color 0.3s ease;
+    }
+
+    a:hover,
+    a:focus {
+      color: var(--botao-bg-hover);
+      outline: none;
+    }
+
+header {
+  background-color: var(--azul-primario);
+  height: 140px; /* altura fixa do espaço verde */
+  padding: 0 5vw;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+  position: sticky;
+  top: 0;
+  z-index: 999;
+}
+    .logo img {
+      max-height: 180px;
+      border-radius: 30%;
+      top: 10%;
+    }
+    .logo img:hover {
+  transform: scale(1.05);
+}
+    nav ul {
+      list-style: none;
+      display: flex;
+      gap: 20px;
+    }
+
+    nav a {
+      color: #fff;
+      text-decoration: none;
+      font-weight: 600;
+      transition: opacity 0.3s ease;
+      font-size: 20px;
+    }
+
+    nav a:hover {
+      opacity: 0.8;
+      color: #000000; 
+    }
+
+    nav a:hover,
+    nav a:focus {
+      border-bottom-color: var(--branco);
+    }
+
+    /* Hero */
+    .hero {
+      max-width: 1100px;
+      margin: 3rem auto 5rem;
+      padding: 0 2rem;
+      text-align: center;
+      
+    }
+
+    .hero img {
+      width: 100%;
+      max-height: 480px;
+      object-fit: cover;
+      border-radius: 8px;
+      box-shadow: 0 10px 20px rgb(0 0 0 / 0.1);
+      margin-bottom: 2rem;
+      border:  2px solid; 
+  border-color:  #008000;
+    }
+
+    .hero-text h1 {
+      font-size: 2.25rem;
+      font-weight: 700;
+      color: var(--azul-primario);
+      margin-bottom: 1.5rem;
+      line-height: 1.2;
+    }
+
+    .hero-buttons {
+      display: flex;
+      justify-content: center;
+      gap: 1.5rem;
+      flex-wrap: wrap;
+    }
+
+    .btn {
+      background-color: var(--botao-bg);
+      color: var(--branco);
+      padding: 0.75rem 2rem;
+      font-weight: 700;
+      border-radius: 6px;
+      border: none;
+      cursor: pointer;
+      font-size: 1rem;
+      transition: background-color 0.3s ease;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      text-decoration: none;
+    }
+
+    .btn:hover,
+    .btn:focus {
+      background-color: var(--botao-bg-hover);
+      outline: none;
+      color: white;
+    }
+
+    /* Sections comuns */
+    section {
+      max-width: 1100px;
+      margin: 0 auto 4rem;
+      padding: 0 2rem;
+    }
+
+    section h2 {
+      font-size: 2rem;
+      font-weight: 700;
+      color: var(--azul-primario);
+      margin-bottom: 1rem;
+      text-align: center;
+    }
+
+    section p {
+      max-width: 720px;
+      margin: 0 auto 2rem;
+      color: var(--cinza-escuro);
+      font-weight: 400;
+      font-size: 1rem;
+      line-height: 1.5;
+      text-align: center;
+    }
+
+    /* Cards genéricos */
+    .cards {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 2rem;
+      
+      
+    }
+.ods .cards {
+  grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+}
+
+.ods .card {
+  position: relative;
+  overflow: hidden;
+  aspect-ratio: 1 / 1;
+}
+
+.ods .card-img img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: opacity 0.4s ease;
+  border:  2px solid; 
+  border-color:  #008000;
+  border-radius: 5px;
+}
+
+
+.ods .card {
+  position: relative;
+  overflow: hidden;
+  border-radius: 8px;
+  cursor: pointer;
+  aspect-ratio: 1 / 1;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  background-color: white;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.ods .card:hover,
+.ods .card:focus-within {
+  transform: translateY(-8px);
+  box-shadow: 0 10px 28px rgba(0, 0, 0, 0.15);
+  outline: none;
+}
+
+.ods .card-img {
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+
+.ods .card-img img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transition: opacity 0.4s ease;
+}
+
+.ods .card:hover .overlay,
+.ods .card:focus-within .overlay {
+  opacity: 1;
+}
+
+.ods .card:hover img,
+.ods .card:focus-within img {
+  opacity: 0;
+}
+
+.ods .overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #056105;
+  color: #fff !important;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 1rem;
+  opacity: 0;
+  transition: opacity 0.4s ease;
+  text-align: center;
+}
+
+.ods .overlay h3 {
+  font-size: 1.0rem;
+  margin-bottom: 0.5rem;
+}
+
+.ods .overlay p {
+  font-size: 0.8rem;
+  margin: 0;
+  color: white;
+}
+
+    .cardsdoa {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 1.8rem;
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 0 1rem;
+}
+
+.cardsdoa .card {
+  background-color: #f9f9f9;
+  border-radius: 12px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  padding: 1.5rem 1rem;
+  text-align: center;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  cursor: default;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  border:  2px solid; 
+  border-color:  #008000;
+}
+
+.cardsdoa .card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 18px rgba(0, 0, 0, 0.15);
+}
+
+.cardsdoa .card img {
+  width: 80px;
+  height: 80px;
+  object-fit: contain;
+  margin-bottom: 1rem;
+}
+
+.cardsdoa .card h3 {
+  font-size: 1.25rem;
+  color:  #008000; /* azul ONU */
+  margin-bottom: 0.5rem;
+}
+
+.cardsdoa .card p {
+  font-size: 1rem;
+  color: #444;
+  line-height: 1.4;
+}
+html[data-theme='dark'] .cardsdoa .card p {
+  color: #fff;
+}
+footer {
+    background-color: var(--azul-primario);
+    width: 100vw;
+    padding: 20px;
+    color: #fff;
+    display: flex;
+    flex-direction: column;    /* organiza os itens em coluna */
+    align-items: center;       /* centraliza horizontalmente */
+    gap: 15px;                 /* espaço entre logo/texto e redes sociais */
+    font-size: 18px;
+}
+
+footer .é-tudo-nosso {
+    display: flex;
+    align-items: center;       /* centraliza verticalmente texto em relação à logo */
+    gap: 10px;                 /* espaço entre logo e texto */
+}
+
+footer .é-tudo-nosso img {
+    max-height: 100px;
+    border-radius: 30%;
+}
+
+footer .é-tudo-nosso p {
+    margin: 0;
+}
+
+footer .redes-sociais {
+    display: flex;
+    gap: 15px;
+}
+
+footer .redes-sociais a {
+    color: #fff;
+    font-size: 32px;           /* ícones maiores */
+    text-decoration: none;
+    transition: transform 0.3s;
+}
+
+footer .redes-sociais a:hover {
+    transform: scale(1.2);     /* efeito hover */
+    color: #000000;
+}
+
+
+    /* Botão WhatsApp fixo */
+    .whatsapp-button {
+      position: fixed;
+      bottom: 90px;
+      right: 20px;
+      background-color:  #008000;
+      color: white;
+      font-size: 28px;
+      width: 55px;
+      height: 55px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 1000;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+      transition: background-color 0.3s ease;
+    }
+
+    .whatsapp-button:hover {
+      background-color:  #05f505;
+      text-decoration: none;
+      color: white;
+    }
+
+    /* Botão toggle tema */
+    #theme-toggle {
+      position: fixed;
+      bottom: 24px;
+      right: 24px;
+      background:  #008000;
+      color: white;
+      border: none;
+      font-size: 1.3rem;
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      box-shadow: 0 0 12px rgba(0,0,0,0.4);
+      z-index: 9999;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: background-color 0.3s ease;
+    }
+
+    #theme-toggle:hover,
+    #theme-toggle:focus {
+      background-color:  #05f505;
+      outline: none;
+      color: white !important;
+    }
+
+    /* Tema escuro simples */
+    html[data-theme='dark'] header {
+      background-color:  #008000;
+      box-shadow: none;
+    }
+
+    html[data-theme='dark'] nav a {
+      color: var(--branco);
+    }
+
+    html[data-theme='dark'] nav a:hover {
+      border-bottom-color:  #008000;
+    }
+
+    html[data-theme='dark'] .card {
+      background-color: #253347;
+      box-shadow: 0 4px 14px rgb(0 0 0 / 0.4);
+    }
+
+    html[data-theme='dark'] footer {
+      background-color:  #008000;
+      color: var(--cinza-escuro);
+      box-shadow: none;
+    }
+    html[data-theme='dark'] .ods {
+      background-color: #121212;
+      border-radius: 15px;
+    }
+    html[data-theme='dark'] .mapa-endereco {
+      color: white;
+    
+    }
+    html[data-theme='dark'] #sobre h2,
+html[data-theme='dark'] #sobre h3,
+html[data-theme='dark'] #sobre p,
+html[data-theme='dark'] #sobre ul,
+html[data-theme='dark'] #sobre li {
+  color: #ffffff;
+}
+
+    /* Responsividade */
+    @media (max-width: 768px) {
+      nav ul {
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 1.5rem;
+      }
+
+      .hero-text h1 {
+        font-size: 1.75rem;
+      }
+
+      .btn {
+        width: 100%;
+        max-width: 320px;
+      }
+
+      .cards {
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      }
+    }
+    /* Estilos base do nav */
+/* Estilos base do nav */
+nav ul {
+  list-style: none;
+  display: flex;
+  gap: 1.5rem;
+  margin: 0;
+  padding: 0;
+}
+
+/* Estilos base do nav */
+nav ul {
+  list-style: none;
+  display: flex;
+  gap: 1.5rem;
+  margin: 0;
+  padding: 0;
+}
+
+/* Botão hamburger - inicialmente escondido */
+#menu-toggle {
+  display: none;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  width: 28px;   /* Menor largura */
+  height: 24px;  /* Menor altura */
+  position: fixed; /* fixo para ficar no topo */
+  right: 20px; /* botão à direita */
+  z-index: 1100;
+  padding: 0;
+}
+
+/* Linhas do hamburger */
+.hamburger,
+.hamburger::before,
+.hamburger::after {
+  content: "";
+  display: block;
+  background-color: white;
+  height: 3px;
+  border-radius: 3px;
+  position: absolute;
+  width: 100%;
+  transition: all 0.3s ease;
+}
+
+/* Linha central */
+.hamburger {
+  top: 50%;
+  left: 0;
+  transform: translateY(-50%);
+}
+
+/* Linha de cima */
+.hamburger::before {
+  top: 7px;
+  left: 0;
+}
+
+/* Linha de baixo */
+.hamburger::after {
+  bottom: 7px;
+  left: 0;
+}
+
+/* Quando ativo, muda a cor das linhas, sem transformar em X */
+#menu-toggle.active .hamburger,
+#menu-toggle.active .hamburger::before,
+#menu-toggle.active .hamburger::after {
+  background-color:  #008000; /* amarelo bonito */
+}
+
+/* Estilos mobile */
+/* Menu lateral mobile */
+@media (max-width: 768px) {
+  nav ul {
+    display: none; /* esconde o menu padrão */
+    flex-direction: column;
+    background-color:  #008000;
+    position: fixed;
+    top: 60px; /* altura do header */
+    right: 0;
+    width: 200px;
+    height: auto; /* ajusta a altura ao conteúdo */
+    max-height: calc(100vh - 60px); /* não ultrapassa a tela */
+    padding-top: 0.5rem;
+    padding-bottom: 0.5rem;
+    box-shadow: -3px 0 8px rgba(0,0,0,0.2);
+    overflow-y: auto; /* scroll caso ultrapasse altura da tela */
+    border-radius: 0 0 0 10px; /* cantinho arredondado só na lateral esquerda */
+    z-index: 1000;
+  }
+
+  nav ul.show {
+    display: flex;
+  }
+
+  nav ul li a {
+    color: white;
+    padding: 1rem 1.5rem;
+    display: block;
+    font-weight: 600;
+    font-size: 1.1rem;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+    transition: background-color 0.3s ease;
+  }
+
+  nav ul li a:hover,
+  nav ul li a:focus {
+    background-color: #01b601;
+    outline: none;
+    color: white;
+  }
+
+  /* Mostrar o botão hamburger no mobile */
+  #menu-toggle {
+    display: block;
+  }
+}
+
+@media (max-width: 768px) {
+  .mainSite {
+  font-size: 0.35rem;
+    display: block;
+    max-width: 100%;
+    box-sizing: border-box;
+
+    text-align: left;
+    white-space: normal;
+    overflow-wrap: break-word;
+    word-wrap: break-word;
+    hyphens: auto;
+  }
+}
+.carrossel {
+  position: relative;
+  width: 100%;
+  overflow: hidden; /* evita que a imagem "vaze" */
+}
+
+.slides {
+  display: flex;
+  transition: transform 0.7s ease-in-out; /* transição suave */
+}
+
+.vol-slide {
+  flex: 0 0 100%;
+  position: relative;
+}
+
+/* Overlay usando ::before */
+.vol-slide::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.7); /* 40% de escuro uniforme */
+  z-index: 1; /* acima da imagem, mas abaixo do hero */
+}
+
+.vol-slide img {
+  width: 100%;
+  height: auto;
+  object-fit: cover; /* cobre a área sem distorcer */
+  display: block;
+  max-height: 80vh;
+  position: relative;
+  z-index: 0; /* atrás do overlay */
+}
+
+/* HERO */
+.hero {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+  color: white;
+  padding: 1rem;
+  width: 100%;
+  z-index: 2; /* acima de tudo */
+}
+
+.hero-text h1 {
+  font-size: 2.5rem;
+  margin-bottom: 1rem;
+  text-shadow: 2px 2px 10px rgba(0,0,0,0.7);
+  color: white;
+}
+
+.hero-buttons {
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+}
+
+.hero-buttons .btn {
+  background-color: #008000;
+  padding: 0.8rem 1.5rem;
+  border-radius: 8px;
+  color: white;
+  text-decoration: none;
+  font-weight: bold;
+  transition: background 0.3s ease;
+  box-shadow: #056105;
+}
+
+.hero-buttons .btn:hover {
+  background-color: #057e33;
+  
+}
+@media (max-width: 768px) {
+  .carrossel {
+    height: 100vh; /* garante altura total da tela */
+    position: relative;
+  }
+
+  .slides, .vol-slide {
+    height: 100%;
+  }
+
+  .vol-slide img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  /* Hero centralizado */
+  .hero {
+    position: absolute;
+    top: 50%;              /* posiciona no meio vertical */
+    left: 50%;             /* posiciona no meio horizontal */
+    transform: translate(-50%, -50%); /* centraliza exatamente */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    padding: 0 1rem;       /* remove excesso de padding vertical */
+    z-index: 10;
+    pointer-events: auto;
+  }
+
+  .hero-text h1 {
+    font-size: 2rem;
+    margin-bottom: 1rem;
+    color: #fff;
+  }
+
+  .hero-buttons {
+    display: flex;
+    justify-content: center;
+    flex-direction: row;
+    gap: 0.5rem;
+  }
+
+  .hero-buttons .btn {
+    padding: 0.5rem 1rem;
+    font-size: 0.9rem;
+  }
+}
+
+
+/* Modo claro (padrão) */
+#sobre {
+  padding: 50px 20px;
+  color: #000000;
+  font-family: 'Oxanium', sans-serif;
+  border-radius: 8px;
+}
+
+/* Modo escuro */
+body.dark-mode #sobre {
+  color: #ffffff;          /* texto claro */
+  background-color: #000000; /* fundo escuro */
+}
+
+#sobre h2, #sobre h3 {
+  text-align: center;
+  color: #008000;
+  margin-bottom: 20px;
+}
+
+#sobre h2 {
+  font-size: 2.5rem;
+}
+
+#sobre h3 {
+  font-size: 2rem;
+  color: #000000;
+}
+
+#sobre p {
+  max-width: 900px;
+  margin: 0 auto 30px;
+  line-height: 1.8;
+  font-size: 1.1rem;
+  color: #000000;
+}
+
+#sobre strong {
+  color: #008000;
+}
+
+#sobre ul {
+  max-width: 900px;
+  margin: 0 auto;
+  list-style: none;
+  padding: 0;
+  line-height: 2;
+}
+
+#sobre ul li {
+  margin-bottom: 10px;
+  position: relative;
+  padding-left: 25px;
+  color: rgb(0, 0, 0);
+}
+
+#sobre ul li::before {
+  content: '★';
+  color: #008000;
+  position: absolute;
+  left: 0;
+}
+
+
+/* Responsivo */
+@media (max-width: 768px) {
+    .mapa-container iframe {
+        height: 300px;
+    }
+
+    .mapa-titulo {
+        font-size: 1.5rem;
+    }
+    .logo{
+     height: auto;
+      border-radius: 30%;
+    }
+}
+
+/* ==== SEÇÃO ENDEREÇO E MAPA ==== */
+
+.contato-mapa-endereco {
+  display: flex;
+  gap: 2rem;
+  max-width: 1100px;
+  margin: 3rem auto;
+  background: #1f1f1f;
+  border-radius: 16px;
+  padding: 2.5rem 3rem;
+  box-shadow: 0 12px 36px rgba(0,0,0,0.6);
+  color: #eee;
+  flex-wrap: wrap;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.card-endereco {
+  flex: 1 1 320px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 1.8rem;
+  color: white;
+}
+.card-endereco p {
+color: white;
+}
+
+.card-endereco h3 {
+  font-size: 2.25rem;
+  margin-bottom: 1.2rem;
+  color: #ffffff;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1.2px;
+}
+
+.info-item {
+  display: flex;
+  align-items: center;
+  gap: 1.2rem;
+  font-size: 1.15rem;
+  color: #ccc;
+  font-weight: 500;
+  transition: color 0.3s ease;
+}
+
+.info-item i {
+  font-size: 2.2rem;
+  color: #ffffff;
+  flex-shrink: 0;
+  transition: color 0.3s ease;
+}
+
+.info-item:hover {
+  color: #ffffff;
+}
+
+.info-item:hover i {
+  color: #ffffff;
+}
+
+.card-mapa {
+  flex: 2 1 500px;
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.8);
+  min-height: 320px;
+  transition: box-shadow 0.3s ease;
+}
+
+.card-mapa iframe {
+  border-radius: 16px;
+  width: 100%;
+  height: 100%;
+  min-height: 320px;
+  border: none;
+  display: block;
+}
+
+/* Modo claro */
+
+body.light-mode form {
+  background: #dbdada;
+  color: #222;
+  box-shadow: 0 8px 24px rgba(0,0,0,0.1);
+}
+
+body.light-mode form legend {
+  color: #222;
+  border-color: #ffffff;
+}
+
+body.light-mode form label,
+body.light-mode form > label {
+  color: #444;
+}
+
+body.light-mode form input,
+body.light-mode form select,
+body.light-mode form textarea {
+  background: #413f3f;
+  color: #ffffff;
+  border: 1px solid #ccc;
+}
+
+body.light-mode form input:focus,
+body.light-mode form select:focus,
+body.light-mode form textarea:focus {
+  border-color: #ffffff;
+  background: #202020;
+  color: #ffffff;
+}
+
+body.light-mode .contato-mapa-endereco {
+  background: #f7f7f7;
+  color: #ffffff;
+  box-shadow: 0 12px 36px rgba(0,0,0,0.12);
+}
+
+body.light-mode .card-endereco h3 {
+  color: #333;
+}
+
+body.light-mode .info-item {
+  color: #555;
+}
+
+body.light-mode .info-item i {
+  color: #000000;
+}
+
+body.light-mode .info-item:hover {
+  color: #000000;
+}
+
+body.light-mode .info-item:hover i {
+  color: #000000;
+}
+
+body.light-mode .card-mapa {
+  box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+}
+
+/* Responsividade */
+
+@media (max-width: 900px) {
+  form {
+    max-width: 100%;
+    padding: 1.5rem 2rem;
+    margin: 2rem 1rem;
+  }
+
+  .contato-mapa-endereco {
+    flex-direction: column;
+    padding: 2rem 1rem;
+  }
+
+  .card-endereco,
+  .card-mapa {
+    flex: 1 1 100%;
+  }
+
+  .card-mapa {
+    min-height: 280px;
+  }
+}
+
+  </style>
+</head>
+<body>
+<header>
+  <div class="logo">
+    <a href="index.html"><img src="Imagens/tudonossologo.png" alt="É tudo nosso" /></a>
+  </div>
+
+  <!-- Botão Hamburger -->
+ <button id="menu-toggle" aria-label="Abrir menu">
+  <span class="hamburger"></span>
+</button>
+
+  <nav id="nav-menu">
+    <ul>
+      <li><a href="index.html">Início</a></li>
+      <li><a href="#sobre">Sobre</a></li>
+      <li><a href="#">Ações Sociais</a></li>
+      <li><a href="doacao.html">Doações</a></li>
+      <li><a href="voluntariado.html">Voluntariado</a></li>
+      <li><a href="contato.html">Contato</a></li>
+    </ul>
+  </nav>
+</header> 
+
+
+  <div class="carrossel">
+  <div class="slides">
+    <div class="vol-slide"><img src="Imagens/tudonosso1.jpg" alt="Imagem 1"></div>
+    <div class="vol-slide"><img src="Imagens/tudonosso2.jpg" alt="Imagem 2"></div>
+    <div class="vol-slide"><img src="Imagens/tudonosso3.jpg" alt="Imagem 3"></div>
+    <div class="vol-slide"><img src="Imagens/tudonosso4.jpg" alt="Imagem 4"></div>
+
+  </div>
+    <section class="hero">
+
+    <div class="hero-text">
+      <h1>Transformando Vidas Através da Solidariedade</h1>
+      <div class="hero-buttons">
+        <a href="voluntariado.html" class="btn">Voluntarie-se</a>
+        <a href="doacao.html" class="btn">Faça sua Doação</a>
+      </div>
+    </div>
+  </section>
+</div>
+<br>
+
+<!-- HTML -->
+<section id="sobre" class="sobre">
+  <h2>Sobre Nós</h2>
+  <p>
+    <strong>É TUDO NOSSO</strong> surge para preencher uma lacuna deixada pelo poder público, que tem a responsabilidade de garantir uma vida digna à população, com acesso a políticas públicas de qualidade relacionadas à cultura, esporte, lazer e outras áreas essenciais.
+  </p>
+  
+  <p>
+    Devido à escassez de espaços de convivência e desenvolvimento socio-cultural, saúde preventiva, esporte e lazer, muitos jovens acabam encontrando caminhos menos promissores. Por isso, um espaço como este contribui para o desenvolvimento do indivíduo e da sociedade de forma ampla e transformadora.
+  </p>
+  
+  <h3>Objetivos Específicos</h3>
+  
+  <ul>
+    <li>Cooperar para o desenvolvimento do raciocínio lógico, crítico e analítico</li>
+    <li>Cooperar para o desenvolvimento esportivo</li>
+    <li>Cooperar para o desenvolvimento corporal</li>
+    <li>Cooperar para o desenvolvimento artístico e cultural</li>
+    <li>Cooperar para o desenvolvimento intelectual</li>
+    <li>Promover a saúde por meio de práticas esportivas e intelectuais</li>
+    <li>Contribuir para o desenvolvimento comunitário</li>
+    <li>Estimular o respeito mútuo entre crianças, jovens, adultos e idosos</li>
+    <li>Incentivar a frequência escolar dos alunos</li>
+    <li>Estimular a participação ativa da sociedade em movimentos sociais, associações de bairro e espaços de luta por direitos humanos</li>
+    <li>Possibilitar formação contínua para nossos jovens, formando novas lideranças</li>
+    <li>Fortalecer o senso de pertencimento dos moradores em relação ao seu espaço vivido</li>
+    <li>Promover a autoestima dos cidadãos, especialmente afro-brasileiros</li>
+  </ul>
+</section>
+
+
+ <section class="doacoes">
+    <h2>Doações</h2>
+    <p>Sua contribuição ajuda a manter nossos projetos e expandir nosso impacto social.</p>
+    <div class="cardsdoa">
+      <div class="card">
+        <img src="imagens/donate.png" alt="Doação Online" />
+        <h3>Doação Online</h3>
+        <p>Contribua de forma segura e rápida com alguns cliques.</p>
+      </div>
+      <div class="card">
+        <img src="https://cdn-icons-png.flaticon.com/512/869/869636.png" alt="Doação de Itens" />
+        <h3>Doação de Itens</h3>
+        <p>Roupas, alimentos e mais — cada item faz a diferença.</p>
+      </div>
+      <div class="card">
+        <img src="imagens/help.png" alt="Doação Recorrente" />
+        <h3>Doação Recorrente</h3>
+        <p>Ajude mensalmente e tenha um impacto contínuo.</p>
+      </div>
+    </div>
+  </section> 
+
+<section class="ods">
+  <h2>Os Objetivos de Desenvolvimento Sustentável no Brasil</h2>
+  <p>Nos alinhamos com os 17 ODS da ONU para promover um mundo mais justo, sustentável e inclusivo.</p>
+  <div class="cards">
+
+    <div class="card" tabindex="0" aria-label="ODS 1: Erradicação da pobreza">
+      <div class="card-img">
+        <img src="imagens/Objetivo_Desenvolvimento_Sustentável_1_PT.jpg" alt="ODS 1 - Erradicação da pobreza" />
+        <div class="overlay">
+          <h3>Erradicação da Pobreza</h3>
+          <p>Acabar com a pobreza extrema e reduzir pela metade todas as formas de pobreza, garantindo direitos, proteção social e resiliência.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="card" tabindex="0" aria-label="ODS 2: Fome Zero e Agricultura Sustentável">
+      <div class="card-img">
+        <img src="imagens/download.png" alt="ODS 2 - Fome Zero e Agricultura Sustentável" />
+        <div class="overlay">
+              <h3>Fome Zero e Agricultura Sustentável</h3>
+              <p>Erradicar a fome, garantir acesso a alimentos nutritivos e promover agricultura sustentável para todos.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="card" tabindex="0" aria-label="ODS 3: Saúde e Bem-estar">
+      <div class="card-img">
+        <img src="imagens/Objetivo_Desenvolvimento_Sustentável_3_PT.jpg" alt="ODS 3 - Saúde e Bem-estar" />
+        <div class="overlay">
+          <h3>Saúde e Bem-estar</h3>
+          <p>Assegurar vida saudável e promover o bem-estar para todas as pessoas, em todas as idades.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="card" tabindex="0" aria-label="ODS 4: Educação de Qualidade">
+      <div class="card-img">
+        <img src="imagens/ods4.jpg" alt="ODS 4 - Educação de Qualidade" />
+        <div class="overlay">
+              <h3>Educação de Qualidade</h3>
+              <p>Garantir educação inclusiva, equitativa e de qualidade, promovendo oportunidades de aprendizado ao longo da vida.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="card" tabindex="0" aria-label="ODS 5: Igualdade de Gênero">
+      <div class="card-img">
+        <img src="imagens/Objetivo_Desenvolvimento_Sustentável_5_PT.jpg" alt="ODS 5 - Igualdade de Gênero" />
+        <div class="overlay">
+          <h3>Igualdade de Gênero</h3>
+    <p>Alcançar a igualdade de gênero e empoderar todas as mulheres e meninas.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="card" tabindex="0" aria-label="ODS 6: Água Potável e Saneamento">
+      <div class="card-img">
+        <img src="imagens/ods6.jpg" alt="ODS 6 - Água Potável e Saneamento" />
+        <div class="overlay">
+          <h3>Água Potável e Saneamento</h3>
+    <p>Garantir disponibilidade e manejo sustentável da água e saneamento para todos.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="card" tabindex="0" aria-label="ODS 7: Energia Acessível e Limpa">
+      <div class="card-img">
+        <img src="imagens/Objetivo_Desenvolvimento_Sustentável_7_PT.jpg" alt="ODS 7 - Energia Acessível e Limpa" />
+        <div class="overlay">
+          <h3>Energia Limpa e Acessível</h3>
+    <p>Assegurar acesso confiável, sustentável e moderno à energia limpa e renovável.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="card" tabindex="0" aria-label="ODS 8: Trabalho Decente e Crescimento Econômico">
+      <div class="card-img">
+        <img src="imagens/download.jpg" alt="ODS 8 - Trabalho Decente e Crescimento Econômico" />
+        <div class="overlay">
+          <h3>Trabalho Decente e Crescimento Econômico</h3>
+    <p>Promover crescimento econômico inclusivo, emprego pleno e produtivo e trabalho decente para todos.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="card" tabindex="0" aria-label="ODS 9: Indústria, Inovação e Infraestrutura">
+      <div class="card-img">
+        <img src="imagens/Objetivo_Desenvolvimento_Sustentável_9_PT.jpg" alt="ODS 9 - Indústria, Inovação e Infraestrutura" />
+        <div class="overlay">
+          <h3>Indústria, Inovação e Infraestrutura</h3>
+    <p>Construir infraestrutura resiliente, promover industrialização inclusiva e fomentar inovação.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="card" tabindex="0" aria-label="ODS 10: Redução das Desigualdades">
+      <div class="card-img">
+        <img src="imagens/ods10.jpg" alt="ODS 10 - Redução das Desigualdades" />
+        <div class="overlay">
+          <h3>Redução das Desigualdades</h3>
+    <p>Reduzir desigualdades dentro dos países e entre eles, promovendo inclusão social, econômica e política.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="card" tabindex="0" aria-label="ODS 11: Cidades e Comunidades Sustentáveis">
+      <div class="card-img">
+        <img src="imagens/images.png" alt="ODS 11 - Cidades e Comunidades Sustentáveis" />
+        <div class="overlay">
+          <h3>Cidades e Comunidades Sustentáveis</h3>
+    <p>Tornar as cidades e comunidades inclusivas, seguras, resilientes e sustentáveis.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="card" tabindex="0" aria-label="ODS 12: Consumo e Produção Responsáveis">
+      <div class="card-img">
+        <img src="imagens/download (12).png" alt="ODS 12 - Consumo e Produção Responsáveis" />
+        <div class="overlay">
+          <h3>Consumo e Produção Responsáveis</h3>
+    <p>Garantir padrões de consumo e produção sustentáveis para preservar recursos naturais.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="card" tabindex="0" aria-label="ODS 13: Ação Contra a Mudança Global do Clima">
+      <div class="card-img">
+        <img src="imagens/download (13).png" alt="ODS 13 - Ação Contra a Mudança Global do Clima" />
+        <div class="overlay">
+          <h3>Ação Contra a Mudança Global do Clima</h3>
+          <p>Adotar medidas urgentes para combater as mudanças climáticas e seus impactos.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="card" tabindex="0" aria-label="ODS 14: Vida na Água">
+      <div class="card-img">
+        <img src="imagens/download (14).png" alt="ODS 14 - Vida na Água" />
+        <div class="overlay">
+          <h3>Vida na Água</h3>
+    <p>Conservar e usar de forma sustentável os oceanos, mares e recursos marinhos.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="card" tabindex="0" aria-label="ODS 15: Vida Terrestre">
+      <div class="card-img">
+        <img src="imagens/download (15).png" alt="ODS 15 - Vida Terrestre" />
+        <div class="overlay">
+          <h3>Vida Terrestre</h3>
+    <p>Proteger, restaurar e promover o uso sustentável dos ecossistemas terrestres e biodiversidade.</p>
+
+        </div>
+      </div>
+    </div>
+
+    <div class="card" tabindex="0" aria-label="ODS 16: Paz, Justiça e Instituições Eficazes">
+      <div class="card-img">
+        <img src="imagens/Objetivo_Desenvolvimento_Sustentável_16_PT.jpg" alt="ODS 16 - Paz, Justiça e Instituições Eficazes" />
+        <div class="overlay">
+          <h3>Paz, Justiça e Instituições Eficazes</h3>
+    <p>Promover sociedades pacíficas, justas e inclusivas, com instituições eficazes e responsáveis.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="card" tabindex="0" aria-label="ODS 17: Parcerias e Meios de Implementação">
+      <div class="card-img">
+        <img src="imagens/ods17.jpg" alt="ODS 17 - Parcerias e Meios de Implementação" />
+        <div class="overlay">
+          <h3>Parcerias e Meios de Implementação</h3>
+          <p>Fortalecer a implementação e revitalizar parcerias globais para o desenvolvimento sustentável.</p>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section> 
+
+
+
+<section class="contato-mapa-endereco container">
+  <div class="card-endereco">
+    <h3>Nosso Endereço</h3>
+    <div class="info-item">
+      <i class="fas fa-map-marker-alt"></i>
+     <p class="mapa-endereco">Rua Aristides Pires de Andrade, 92, Itapecerica da Serra, SP, Brazil, 06867-650</p>
+    </div>
+    <div class="info-item">
+      <i class="fas fa-phone"></i>
+      <p>(11) 99563-7530</p>
+    </div>
+    <div class="info-item">
+      <i class="fas fa-envelope"></i>
+      <p>espacotudonosso@gmail.com</p>
+    </div>
+  </div>
+  <div class="card-mapa">
+    <iframe 
+      src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3656.938188460063!2d-46.84200348494922!3d-23.71429988467214!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x94ce50bb5c8ce983%3A0x2d26e57632a00e45!2sR.%20Clotilde%20de%20Louro%2C%20743%20-%20Vila%20Louro%2C%20Embu-Gua%C3%A7u%20-%20SP%2C%2006900-185!5e0!3m2!1spt-BR!2sbr!4v1688123456789!5m2!1spt-BR!2sbr" 
+      width="100%" height="300" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+  </div>
+</section>
+
+<footer>
+  <div class="é-tudo-nosso">
+    <img src="imagens/tudonossologo.png" alt="">
+    <p>&copy; É Tudo Nosso — Todos os direitos reservados.</p>
+  </div>
+  <div class="redes-sociais">
+    <a href="https://www.instagram.com/espacoetudonosso" target="_blank"><i class="fab fa-instagram"></i></a>
+    <a href="https://https://www.facebook.com/tudonossosim" target="_blank"><i class="fab fa-facebook"></i></a>
+  </div>
+</footer>
+
+
+  <a href="https://wa.me/
+(11) 99563-7530" target="_blank" rel="noopener noreferrer" class="whatsapp-button" aria-label="WhatsApp">
+    <i class="fab fa-whatsapp"></i>
+  </a>
+
+  <button id="theme-toggle" aria-label="Alternar tema">
+    <i class="fas fa-adjust"></i>
+  </button>
+
+<script>
+  const toggleButton = document.getElementById('theme-toggle');
+  const htmlElement = document.documentElement;
+
+  // Mantém o tema salvo no localStorage
+  const savedTheme = localStorage.getItem('theme');
+  if (savedTheme) {
+    htmlElement.setAttribute('data-theme', savedTheme);
+  }
+
+  toggleButton.addEventListener('click', () => {
+    const currentTheme = htmlElement.getAttribute('data-theme');
+    if (currentTheme === 'dark') {
+      htmlElement.setAttribute('data-theme', 'light');
+      localStorage.setItem('theme', 'light');
+    } else {
+      htmlElement.setAttribute('data-theme', 'dark');
+      localStorage.setItem('theme', 'dark');
+    }
+  });
+
+  const menuToggle = document.getElementById('menu-toggle');
+  const navMenu = document.querySelector('nav ul');
+
+  menuToggle.addEventListener('click', (e) => {
+    e.stopPropagation(); // para não disparar o listener do document abaixo
+
+    const expanded = menuToggle.getAttribute('aria-expanded') === 'true';
+    menuToggle.setAttribute('aria-expanded', !expanded);
+    menuToggle.classList.toggle('active');
+    navMenu.classList.toggle('show');
+  });
+
+  // Fecha o menu se clicar fora dele e do botão
+  document.addEventListener('click', (e) => {
+    if (!navMenu.contains(e.target) && !menuToggle.contains(e.target)) {
+      navMenu.classList.remove('show');
+      menuToggle.classList.remove('active');
+      menuToggle.setAttribute('aria-expanded', false);
+    }
+  });
+  const slides = document.querySelectorAll(".vol-slide");
+let index = 0;
+
+function nextSlide() {
+  index = (index + 1) % slides.length;
+  document.querySelector(".slides").style.transform = `translateX(-${index * 100}%)`;
+}
+
+setInterval(nextSlide, 4000); // muda a cada 4 segundos
+
+</script>
+
+</body>
+</html>
