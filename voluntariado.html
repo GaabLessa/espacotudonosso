@@ -1,0 +1,749 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <title>Cadastro de Voluntários - Voluntários do Bem</title>
+  <link rel="icon" href="Imagens/nerdcon_favicon.ico" type="image/x-icon">
+  <link href="https://fonts.googleapis.com/css2?family=Oxanium:wght@300;400;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+
+  
+
+<style>
+  body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: #f8f9fa;
+    margin: 0;
+    padding: 0;
+    color: #333;
+  }
+   
+header {
+  background-color: #008000;
+  height: 140px; /* altura fixa do espaço verde */
+  padding: 0 5vw;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+  position: sticky;
+  top: 0;
+  z-index: 999;
+}
+    .logo img {
+      max-height: 180px;
+      border-radius: 30%;
+      top: 10%;
+    }
+    .logo img:hover {
+  transform: scale(1.05);
+}
+    nav ul {
+      list-style: none;
+      display: flex;
+      gap: 20px;
+    }
+
+    nav a {
+      color: #fff;
+      text-decoration: none;
+      font-weight: 600;
+      transition: opacity 0.3s ease;
+      font-size: 20px;
+    }
+
+    nav a:hover {
+      opacity: 0.8;
+      color: #000000; 
+    }
+
+    nav a:hover,
+    nav a:focus {
+      border-bottom-color: var(--branco);
+    }
+
+    /* Hero */
+    .hero {
+      max-width: 1100px;
+      margin: 3rem auto 5rem;
+      padding: 0 2rem;
+      text-align: center;
+      
+    }
+
+    .hero img {
+      width: 100%;
+      max-height: 480px;
+      object-fit: cover;
+      border-radius: 8px;
+      box-shadow: 0 10px 20px rgb(0 0 0 / 0.1);
+      margin-bottom: 2rem;
+      border:  2px solid; 
+  border-color:  #008000;
+    }
+
+    .hero-text h1 {
+      font-size: 2.25rem;
+      font-weight: 700;
+      color: var(--azul-primario);
+      margin-bottom: 1.5rem;
+      line-height: 1.2;
+    }
+
+    .hero-buttons {
+      display: flex;
+      justify-content: center;
+      gap: 1.5rem;
+      flex-wrap: wrap;
+    }
+  main {
+    max-width: 600px;
+    margin: 3rem auto;
+    background-color: #0e6424;
+    padding: 2rem 2.5rem;
+    border-radius: 12px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+  }
+  h1, h2 {
+    text-align: center;
+    margin-bottom: 1rem;
+    color: #ffffff;
+  }
+  label {
+    font-weight: 600;
+    display: block;
+    margin-top: 1rem;
+    margin-bottom: 0.4rem;
+  }
+  input[type=number], select {
+    width: 100%;
+    padding: 12px 10px;
+    font-size: 1rem;
+    border-radius: 8px;
+    border: 1px solid #ccc;
+  }
+  .payment-methods {
+    display: flex;
+    gap: 1rem;
+    margin-top: 2rem;
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+  .btn-method {
+    flex: 1 1 120px;
+    padding: 1rem;
+    border-radius: 10px;
+    border: none;
+    font-weight: 700;
+    cursor: pointer;
+    color: white;
+    font-size: 1.1rem;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+    transition: transform 0.2s ease, box-shadow 0.3s ease;
+  }
+  .btn-method:hover,
+  .btn-method:focus {
+    transform: scale(1.05);
+    box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+    outline: none;
+  }
+  .btn-mercado {
+    background: #00a650;
+  }
+  .btn-paypal {
+    background: #003087;
+  }
+  .btn-pix {
+    background: #EAB308;
+    color: #222;
+  }
+  .btn-pix:disabled {
+    background: #ccc;
+    cursor: not-allowed;
+    color: #666;
+  }
+  /* Modal */
+  .modal-bg {
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.6);
+    display: none;
+    justify-content: center;
+    align-items: center;
+    z-index: 1500;
+  }
+  .modal-bg.active {
+    display: flex;
+  }
+  .modal-content {
+    background: white;
+    border-radius: 12px;
+    padding: 2rem;
+    max-width: 400px;
+    width: 90%;
+    text-align: center;
+    position: relative;
+  }
+  .modal-content img {
+    max-width: 250px;
+    margin-bottom: 1rem;
+  }
+  .modal-content p {
+    margin-bottom: 1rem;
+    font-weight: 600;
+  }
+  .modal-content button {
+    background: #005bac;
+    color: white;
+    padding: 0.8rem 1.4rem;
+    border: none;
+    border-radius: 8px;
+    font-size: 1rem;
+    cursor: pointer;
+    font-weight: 600;
+    transition: background 0.3s ease;
+  }
+  .modal-content button:hover {
+    background: #003d7a;
+  }
+  .modal-close {
+    position: absolute;
+    top: 10px;
+    right: 15px;
+    background: transparent;
+    border: none;
+    font-size: 1.5rem;
+    cursor: pointer;
+    color: #999;
+    transition: color 0.3s ease;
+  }
+  .modal-close:hover {
+    color: #333;
+  }
+  /* Aviso de mensagem */
+  #mensal-pix-alert {
+    background: #fff3cd;
+    color: #856404;
+    border: 1px solid #ffeeba;
+    border-radius: 8px;
+    padding: 12px 15px;
+    margin-top: 1.5rem;
+    text-align: center;
+    font-weight: 600;
+    display: none;
+  }
+
+      /* Estilos base do nav */
+nav ul {
+  list-style: none;
+  display: flex;
+  gap: 1.5rem;
+  margin: 0;
+  padding: 0;
+}
+
+/* Botão hamburger - inicialmente escondido */
+#menu-toggle {
+  display: none;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  width: 28px;   /* Menor largura */
+  height: 24px;  /* Menor altura */
+  position: fixed; /* fixo para ficar no topo */
+  right: 20px; /* botão à direita */
+  z-index: 1100;
+  padding: 0;
+}
+
+/* Linhas do hamburger */
+.hamburger,
+.hamburger::before,
+.hamburger::after {
+  content: "";
+  display: block;
+  background-color: white;
+  height: 3px;
+  border-radius: 3px;
+  position: absolute;
+  width: 100%;
+  transition: all 0.3s ease;
+}
+
+/* Linha central */
+.hamburger {
+  top: 50%;
+  left: 0;
+  transform: translateY(-50%);
+}
+
+/* Linha de cima */
+.hamburger::before {
+  top: 7px;
+  left: 0;
+}
+
+/* Linha de baixo */
+.hamburger::after {
+  bottom: 7px;
+  left: 0;
+}
+
+/* Quando ativo, muda a cor das linhas, sem transformar em X */
+#menu-toggle.active .hamburger,
+#menu-toggle.active .hamburger::before,
+#menu-toggle.active .hamburger::after {
+  background-color: #f10f0f; /* amarelo bonito */
+}
+
+/* Estilos mobile */
+/* Menu lateral mobile */
+@media (max-width: 768px) {
+  nav ul {
+    display: none; /* esconde o menu padrão */
+    flex-direction: column;
+    background-color: #005bac;
+    position: fixed;
+    top: 60px; /* altura do header */
+    right: 0;
+    width: 200px;
+    height: auto; /* ajusta a altura ao conteúdo */
+    max-height: calc(100vh - 60px); /* não ultrapassa a tela */
+    padding-top: 0.5rem;
+    padding-bottom: 0.5rem;
+    box-shadow: -3px 0 8px rgba(0,0,0,0.2);
+    overflow-y: auto; /* scroll caso ultrapasse altura da tela */
+    border-radius: 0 0 0 10px; /* cantinho arredondado só na lateral esquerda */
+    z-index: 1000;
+  }
+
+  nav ul.show {
+    display: flex;
+  }
+
+  nav ul li a {
+    color: white;
+    padding: 1rem 1.5rem;
+    display: block;
+    font-weight: 600;
+    font-size: 1.1rem;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+    transition: background-color 0.3s ease;
+  }
+
+  nav ul li a:hover,
+  nav ul li a:focus {
+    background-color: #008000;
+    outline: none;
+  }
+
+  /* Mostrar o botão hamburger no mobile */
+  #menu-toggle {
+    display: block;
+  }
+}
+
+/* Formulário estilo base ONU, cores fixas */
+
+form label {
+  display: block; /* corrigido display: fle */
+  margin-bottom: 0.5rem;
+  font-weight: 600;
+  color: #000000; /* azul primário */
+  font-size: 1rem;
+}
+
+form {
+  max-width: 600px;
+  margin: 2rem auto;
+  padding: 2rem 2.5rem; /* ajuste para ter um espaço lateral bom */
+  background-color: #fff;
+  border: 2px solid #0e6424;
+  border-radius: 12px;
+  box-shadow: 0 6px 15px rgba(1, 70, 35, 0.15);
+}
+
+form input[type="text"],
+form input[type="email"],
+form input[type="tel"],
+form input[type="number"],
+form select,
+form textarea {
+  width: 100%;
+  padding: 0.6rem 0.8rem;
+  margin-bottom: 1.4rem;
+  border: 2px solid #0e6424;
+  border-radius: 8px;
+  font-size: 1rem;
+  font-family: 'Poppins', sans-serif;
+  color: #656666;
+  background-color: #fff;
+  box-sizing: border-box; /* ESSA LINHA É FUNDAMENTAL */
+}
+
+form textarea {
+  min-height: 100px;
+}
+
+form input:focus,
+form select:focus,
+form textarea:focus {
+  outline: none;
+  border-color: #0e6424;
+
+  background-color: #fff;
+}
+
+form button[type="submit"] {
+  background-color: #008000; /* azul primário */
+  color: #fff; /* branco */
+  padding: 0.75rem 2rem;
+  font-weight: 700;
+  font-size: 1.1rem;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.3s ease, box-shadow 0.3s ease;
+  display: inline-block;
+}
+
+form button[type="submit"]:hover,
+form button[type="submit"]:focus {
+  background-color: #0e6424;
+  outline: none;
+  color: #fff;
+}
+
+/* Mensagens de erro ou sucesso (se usar) */
+form .message {
+  font-weight: 600;
+  margin-top: 1rem;
+  color: #d93025; /* vermelho para erro */
+}
+
+/* Responsividade para mobile */
+@media (max-width: 480px) {
+  form {
+    padding: 1rem 2rem; /* menos padding nas laterais, mas igual dos dois lados */
+    margin: 1rem auto; /* para dar margem vertical menor no mobile */
+    box-shadow: none; /* opcional, para tirar sombra e ficar mais clean no mobile */
+    border-width: 1.5px; /* borda um pouco menor no mobile */
+  }
+
+  form button[type="submit"] {
+    width: 100%;
+    padding: 0.85rem 1rem;
+    font-size: 1rem;
+  }
+}
+
+
+    /* Botão WhatsApp fixo */
+    .whatsapp-button {
+      position: fixed;
+      bottom: 90px;
+      right: 20px;
+      background-color: #008000;
+      color: white;
+      font-size: 28px;
+      width: 55px;
+      height: 55px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 1000;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+      transition: background-color 0.3s ease;
+      text-decoration: none;
+    }
+
+    .whatsapp-button:hover {
+      background-color: #0e6424;
+      text-decoration: none;
+    }
+
+    /* Botão toggle tema */
+    #theme-toggle {
+      position: fixed;
+      bottom: 24px;
+      right: 24px;
+      background: #008000;
+      color: #fff;
+      border: none;
+      font-size: 1.3rem;
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      box-shadow: 0 0 12px rgba(0,0,0,0.4);
+      z-index: 9999;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: background-color 0.3s ease;
+    }
+
+    #theme-toggle:hover,
+    #theme-toggle:focus {
+      background-color: #0e6424;
+      outline: none;
+    }
+
+    /* Tema escuro simples */
+    html[data-theme='dark'] body {
+      background-color: #121212;
+      color: #e0e0e0;
+    }
+
+    html[data-theme='dark'] header {
+      background-color: #008000;;
+      box-shadow: none;
+    }
+
+    html[data-theme='dark'] nav a {
+      color: #e0e0e0;
+    }
+
+    html[data-theme='dark'] main {
+      background-color: #008000;
+      color: #fff;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.5);
+    }
+
+    html[data-theme='dark'] form {
+      background-color: #1c1c1c;
+      border-color: #008000;
+     
+    }
+
+    html[data-theme='dark'] form label {
+      color: #ffffff;
+    }
+
+    html[data-theme='dark'] form input,
+    html[data-theme='dark'] form select,
+    html[data-theme='dark'] form textarea {
+      background-color: #585858;
+      color: #ffffff;
+      border-color: #008000;;
+    }
+
+    html[data-theme='dark'] form input:focus,
+    html[data-theme='dark'] form select:focus,
+    html[data-theme='dark'] form textarea:focus {
+      box-shadow: 0 0 8px #000000;
+      border-color: #66a3ff;
+      background-color: #797a7a;
+    }
+
+    html[data-theme='dark'] form button[type="submit"] {
+      background-color: #008000;
+   
+    }
+
+    html[data-theme='dark'] form button[type="submit"]:hover,
+    html[data-theme='dark'] form button[type="submit"]:focus {
+      background-color: #0e6424;
+  
+    }
+
+    html[data-theme='dark'] footer {
+      background-color: #008000;
+      color: #cfd8ff;
+      box-shadow: none;
+    }
+    footer {
+    background-color: #008000;
+    width: 100vw;
+    padding: 20px;
+    color: #fff;
+    display: flex;
+    flex-direction: column;    /* organiza os itens em coluna */
+    align-items: center;       /* centraliza horizontalmente */
+    gap: 15px;                 /* espaço entre logo/texto e redes sociais */
+    font-size: 18px;
+}
+
+footer .é-tudo-nosso {
+    display: flex;
+    align-items: center;       /* centraliza verticalmente texto em relação à logo */
+    gap: 10px;                 /* espaço entre logo e texto */
+}
+
+footer .é-tudo-nosso img {
+    max-height: 100px;
+    border-radius: 30%;
+}
+
+footer .é-tudo-nosso p {
+    margin: 0;
+}
+
+footer .redes-sociais {
+    display: flex;
+    gap: 15px;
+}
+
+footer .redes-sociais a {
+    color: #fff;
+    font-size: 32px;           /* ícones maiores */
+    text-decoration: none;
+    transition: transform 0.3s;
+}
+
+footer .redes-sociais a:hover {
+    transform: scale(1.2);     /* efeito hover */
+    color: #000000;
+}
+
+</style>
+</head>
+<body>
+<header>
+  <div class="logo">
+    <a href="index.html"><img src="Imagens/tudonossologo.png" alt="É tudo nosso" /></a>
+  </div>
+
+  <!-- Botão Hamburger -->
+ <button id="menu-toggle" aria-label="Abrir menu">
+  <span class="hamburger"></span>
+</button>
+
+  <nav id="nav-menu">
+    <ul>
+      <li><a href="index.html">Início</a></li>
+      <li><a href="index.html#sobre">Sobre</a></li>
+      <li><a href="#">Ações Sociais</a></li>
+      <li><a href="doacao.html">Doações</a></li>
+      <li><a href="voluntariado.html">Voluntariado</a></li>
+      <li><a href="contato.html">Contato</a></li>
+    </ul>
+  </nav>
+</header>
+
+  <main role="main">
+    <section class="voluntariado-info">
+      <h1>Cadastro de Voluntários</h1>
+      <form method="post" action="https://script.google.com/macros/s/AKfycbxWxy0lg_QkUeg50dYo1JQva3j_urSgWr0QkBx1Vqny24KlDR0CAnN8tBdVAMmAA0sZsg/exec" novalidate class="voluntario-card form-voluntario">
+        
+        <div class="form-group">
+          <label for="nome">Nome Completo</label>
+          <input type="text" id="nome" name="nome" placeholder="Seu nome completo" required />
+        </div>
+
+        <div class="form-group">
+          <label for="email">E-mail</label>
+          <input type="email" id="email" name="email" placeholder="exemplo@email.com" required />
+        </div>
+
+        <div class="form-group">
+          <label for="telefone">Telefone</label>
+          <input type="tel" id="telefone" name="telefone" placeholder="(00) 00000-0000" required />
+        </div>
+
+        <div class="form-group">
+          <label for="cpf">CPF</label>
+          <input type="text" id="cpf" name="cpf" placeholder="000.000.000-00" required />
+        </div>
+
+        <div class="form-group">
+          <label for="rg">RG</label>
+          <input type="text" id="rg" name="rg" placeholder="Número do RG" required />
+        </div>
+
+        <div class="form-group">
+          <label for="data_nascimento">Data de Nascimento</label>
+          <input type="date" id="data_nascimento" name="data_nascimento" required />
+        </div>
+
+        <div class="form-group">
+          <label for="endereco">Endereço</label>
+          <input type="text" id="endereco" name="endereco" placeholder="Rua, número, bairro, cidade, estado" required />
+        </div>
+
+        <div class="form-group">
+          <label for="disponibilidade">Disponibilidade</label>
+          <input type="text" id="disponibilidade" name="disponibilidade" placeholder="Ex: Segunda, Quarta, Sábado" />
+        </div>
+
+        <div class="form-group">
+          <label for="observacoes">Conte-nos um pouco</label>
+          <textarea id="observacoes" name="observacoes" placeholder="Como você gostaria de nos ajudar?"></textarea>
+        </div>
+
+        <button type="submit" class="btn-doar">Enviar Cadastro</button>
+      </form>
+    </section>
+  </main>
+
+ 
+<footer>
+  <div class="é-tudo-nosso">
+    <img src="Imagens/tudonossologo.png" alt="">
+    <p>&copy; É Tudo Nosso — Todos os direitos reservados.</p>
+  </div>
+  <div class="redes-sociais">
+    <a href="https://www.instagram.com/espacoetudonosso" target="_blank"><i class="fab fa-instagram"></i></a>
+    <a href="https://https://www.facebook.com/tudonossosim" target="_blank"><i class="fab fa-facebook"></i></a>
+  </div>
+</footer>
+
+
+  <!-- Botão WhatsApp fixo -->
+  <a href="https://wa.me/5598999999999" target="_blank" rel="noopener" class="whatsapp-button" aria-label="Contato pelo WhatsApp">
+    <i class="fab fa-whatsapp"></i>
+  </a>
+
+  <!-- Botão toggle tema -->
+  <button id="theme-toggle" aria-label="Alternar tema claro e escuro" title="Alternar tema">
+    <i class="fas fa-moon"></i>
+  </button>
+
+  <script>
+    // Menu Mobile
+    const menuToggle = document.getElementById('menu-toggle');
+    const navLinks = document.querySelector('nav ul');
+
+    menuToggle.addEventListener('click', () => {
+      navLinks.classList.toggle('show');
+      menuToggle.classList.toggle('active');
+      if(navLinks.classList.contains('show')) {
+        menuToggle.setAttribute('aria-label', 'Fechar menu');
+      } else {
+        menuToggle.setAttribute('aria-label', 'Abrir menu');
+      }
+    });
+
+    // Tema Claro/Escuro
+    const themeToggle = document.getElementById('theme-toggle');
+    const html = document.documentElement;
+
+    function updateIcon() {
+      if (html.getAttribute('data-theme') === 'dark') {
+        themeToggle.innerHTML = '<i class="fas fa-sun"></i>'; // ícone sol para escuro
+      } else {
+        themeToggle.innerHTML = '<i class="fas fa-moon"></i>'; // ícone lua para claro
+      }
+    }
+
+    themeToggle.addEventListener('click', () => {
+      const currentTheme = html.getAttribute('data-theme');
+      const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+      html.setAttribute('data-theme', newTheme);
+      localStorage.setItem('theme', newTheme);
+      updateIcon();
+    });
+
+    // Ao carregar, aplicar tema salvo no localStorage (ou padrão dark)
+    const savedTheme = localStorage.getItem('theme');
+    if (savedTheme) {
+      html.setAttribute('data-theme', savedTheme);
+    } else {
+      html.setAttribute('data-theme', 'dark');
+    }
+    updateIcon();
+  </script>
+</body>
+</html>
