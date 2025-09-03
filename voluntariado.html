@@ -194,7 +194,7 @@ header {
     font-weight: 600;
   }
   .modal-content button {
-    background: #005bac;
+    background: #008000;
     color: white;
     padding: 0.8rem 1.4rem;
     border: none;
@@ -205,7 +205,7 @@ header {
     transition: background 0.3s ease;
   }
   .modal-content button:hover {
-    background: #003d7a;
+    background: #008000;
   }
   .modal-close {
     position: absolute;
@@ -294,7 +294,7 @@ nav ul {
 #menu-toggle.active .hamburger,
 #menu-toggle.active .hamburger::before,
 #menu-toggle.active .hamburger::after {
-  background-color: #f10f0f; /* amarelo bonito */
+  background-color: #ffffff; /* amarelo bonito */
 }
 
 /* Estilos mobile */
@@ -303,7 +303,7 @@ nav ul {
   nav ul {
     display: none; /* esconde o menu padrão */
     flex-direction: column;
-    background-color: #005bac;
+    background-color: #008000;
     position: fixed;
     top: 60px; /* altura do header */
     right: 0;
@@ -554,49 +554,92 @@ form .message {
       color: #cfd8ff;
       box-shadow: none;
     }
-    footer {
-    background-color: #008000;
-    width: 100vw;
-    padding: 20px;
-    color: #fff;
-    display: flex;
-    flex-direction: column;    /* organiza os itens em coluna */
-    align-items: center;       /* centraliza horizontalmente */
-    gap: 15px;                 /* espaço entre logo/texto e redes sociais */
-    font-size: 18px;
+footer {
+  background-color: #008000;
+  color: #fff;
+  padding: 30px 20px;
+  font-size: 16px;
 }
 
-footer .é-tudo-nosso {
-    display: flex;
-    align-items: center;       /* centraliza verticalmente texto em relação à logo */
-    gap: 10px;                 /* espaço entre logo e texto */
+footer .footer-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  max-width: 1100px;
+  margin: 0 auto;
+  flex-wrap: wrap; /* permite quebra suave em telas muito pequenas */
+  gap: 30px;
 }
 
-footer .é-tudo-nosso img {
-    max-height: 100px;
-    border-radius: 30%;
+/* Cada coluna */
+footer .footer-col {
+  flex: 1 1 250px; /* largura mínima 250px */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 12px;
 }
 
-footer .é-tudo-nosso p {
-    margin: 0;
+/* Logo */
+footer .footer-logo img {
+  max-height: 60px;
+  width: auto;
+  border-radius: 30%;
 }
 
-footer .redes-sociais {
-    display: flex;
-    gap: 15px;
+/* Contatos */
+footer .footer-contato p {
+  margin: 6px 0;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  justify-content: center;
 }
 
-footer .redes-sociais a {
-    color: #fff;
-    font-size: 32px;           /* ícones maiores */
-    text-decoration: none;
-    transition: transform 0.3s;
+footer .footer-contato i {
+  font-size: 18px;
+  color: #fff;
 }
 
-footer .redes-sociais a:hover {
-    transform: scale(1.2);     /* efeito hover */
-    color: #000000;
+/* Redes sociais */
+footer .footer-redes {
+  display: flex;
+  gap: 15px;
 }
+
+footer .footer-redes a {
+  color: #fff;
+  font-size: 28px;
+  transition: transform 0.3s, color 0.3s;
+}
+
+footer .footer-redes a:hover {
+  transform: scale(1.2);
+  color: #000;
+}
+
+/* Mobile suave */
+@media (max-width: 768px) {
+  footer .footer-col {
+    flex: 1 1 45%; /* duas colunas lado a lado */
+  }
+}
+
+@media (max-width: 480px) {
+  footer .footer-col {
+    flex: 1 1 100%; /* uma coluna por linha no celular pequeno */
+  }
+
+  footer .footer-redes a {
+    font-size: 24px; /* ícones um pouco menores */
+  }
+
+  footer .footer-contato p {
+    font-size: 14px; /* textos menores para caber */
+  }
+}
+
 
 </style>
 </head>
@@ -615,7 +658,7 @@ footer .redes-sociais a:hover {
     <ul>
       <li><a href="index.html">Início</a></li>
       <li><a href="index.html#sobre">Sobre</a></li>
-      <li><a href="#">Ações Sociais</a></li>
+      <li><a href="acoes.html">Ações Sociais</a></li>
       <li><a href="doacao.html">Doações</a></li>
       <li><a href="voluntariado.html">Voluntariado</a></li>
       <li><a href="contato.html">Contato</a></li>
@@ -623,127 +666,347 @@ footer .redes-sociais a:hover {
   </nav>
 </header>
 
-  <main role="main">
-    <section class="voluntariado-info">
-      <h1>Cadastro de Voluntários</h1>
-      <form method="post" action="https://script.google.com/macros/s/AKfycbxWxy0lg_QkUeg50dYo1JQva3j_urSgWr0QkBx1Vqny24KlDR0CAnN8tBdVAMmAA0sZsg/exec" novalidate class="voluntario-card form-voluntario">
-        
-        <div class="form-group">
-          <label for="nome">Nome Completo</label>
-          <input type="text" id="nome" name="nome" placeholder="Seu nome completo" required />
-        </div>
+<main role="main">
+  <section class="voluntariado-info">
+    <h1>Cadastro de Voluntários</h1>
+    <form novalidate class="voluntario-card form-voluntario" autocomplete="off">
+      
+      <div class="form-group">
+        <label for="nome">Nome Completo</label>
+        <input type="text" id="nome" name="nome" placeholder="Seu nome completo" required />
+      </div>
 
-        <div class="form-group">
-          <label for="email">E-mail</label>
-          <input type="email" id="email" name="email" placeholder="exemplo@email.com" required />
-        </div>
+      <div class="form-group">
+        <label for="email">E-mail</label>
+        <input type="email" id="email" name="email" placeholder="exemplo@email.com" required />
+      </div>
 
-        <div class="form-group">
-          <label for="telefone">Telefone</label>
-          <input type="tel" id="telefone" name="telefone" placeholder="(00) 00000-0000" required />
-        </div>
+      <div class="form-group">
+        <label for="telefone">Telefone</label>
+        <input type="tel" id="telefone" name="telefone" placeholder="(00) 00000-0000" required />
+      </div>
 
-        <div class="form-group">
-          <label for="cpf">CPF</label>
-          <input type="text" id="cpf" name="cpf" placeholder="000.000.000-00" required />
-        </div>
+      <div class="form-group">
+        <label for="cpf">CPF</label>
+        <input type="text" id="cpf" name="cpf" placeholder="000.000.000-00" required />
+      </div>
 
-        <div class="form-group">
-          <label for="rg">RG</label>
-          <input type="text" id="rg" name="rg" placeholder="Número do RG" required />
-        </div>
+      <div class="form-group">
+        <label for="rg">RG</label>
+        <input type="text" id="rg" name="rg" placeholder="Número do RG" required />
+      </div>
 
-        <div class="form-group">
-          <label for="data_nascimento">Data de Nascimento</label>
-          <input type="date" id="data_nascimento" name="data_nascimento" required />
-        </div>
+      <div class="form-group">
+        <label for="data_nascimento">Data de Nascimento</label>
+        <input type="date" id="data_nascimento" name="data_nascimento" required />
+      </div>
 
-        <div class="form-group">
-          <label for="endereco">Endereço</label>
-          <input type="text" id="endereco" name="endereco" placeholder="Rua, número, bairro, cidade, estado" required />
-        </div>
+      <div class="form-group">
+        <label for="endereco">Endereço</label>
+        <input type="text" id="endereco" name="endereco" placeholder="Rua, número, bairro, cidade, estado" required />
+      </div>
 
-        <div class="form-group">
-          <label for="disponibilidade">Disponibilidade</label>
-          <input type="text" id="disponibilidade" name="disponibilidade" placeholder="Ex: Segunda, Quarta, Sábado" />
-        </div>
+      <div class="form-group">
+        <label for="disponibilidade">Disponibilidade</label>
+        <input type="text" id="disponibilidade" name="disponibilidade" placeholder="Ex: Segunda, Quarta, Sábado" />
+      </div>
 
-        <div class="form-group">
-          <label for="observacoes">Conte-nos um pouco</label>
-          <textarea id="observacoes" name="observacoes" placeholder="Como você gostaria de nos ajudar?"></textarea>
-        </div>
+      <div class="form-group">
+        <label for="observacoes">Conte-nos um pouco</label>
+        <textarea id="observacoes" name="observacoes" placeholder="Como você gostaria de nos ajudar?"></textarea>
+      </div>
 
-        <button type="submit" class="btn-doar">Enviar Cadastro</button>
-      </form>
-    </section>
-  </main>
+      <button type="submit" class="btn-doar">Enviar Cadastro</button>
+    </form>
+  </section>
+</main>
 
- 
-<footer>
-  <div class="é-tudo-nosso">
-    <img src="Imagens/tudonossologo.png" alt="">
-    <p>&copy; É Tudo Nosso — Todos os direitos reservados.</p>
+<!-- Modal de confirmação -->
+<div class="modal-bg" id="form-modal">
+  <div class="modal-content">
+    <button class="modal-close" id="modal-close">&times;</button>
+    <p id="modal-message"></p>
+    <button id="modal-ok">OK</button>
   </div>
-  <div class="redes-sociais">
-    <a href="https://www.instagram.com/espacoetudonosso" target="_blank"><i class="fab fa-instagram"></i></a>
-    <a href="https://https://www.facebook.com/tudonossosim" target="_blank"><i class="fab fa-facebook"></i></a>
+</div>
+
+<style>
+/* Main/Formulário */
+main {
+  max-width: 600px;
+  margin: 3rem auto;
+  background-color: #0e6424;
+  padding: 2rem 2.5rem;
+  border-radius: 12px;
+  box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+  color: #fff;
+}
+
+h1 {
+  text-align: center;
+  margin-bottom: 1.5rem;
+}
+
+label {
+  display: block;
+  margin-top: 1rem;
+  margin-bottom: 0.4rem;
+  font-weight: 600;
+  color: #fff;
+}
+
+input, select, textarea {
+  width: 100%;
+  padding: 0.6rem 0.8rem;
+  margin-bottom: 1.4rem;
+  border: 2px solid #fff;
+  border-radius: 8px;
+  font-size: 1rem;
+  box-sizing: border-box;
+  color: #333;
+}
+
+textarea { min-height: 100px; }
+
+input:focus, select:focus, textarea:focus {
+  outline: none;
+  border-color: #66a3ff;
+  background-color: #fff;
+}
+
+button[type="submit"] {
+  background-color: #008000;
+  color: #fff;
+  padding: 0.75rem 2rem;
+  font-weight: 700;
+  font-size: 1.1rem;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: 0.3s;
+  display: inline-block;
+}
+
+button[type="submit"]:hover {
+  background-color: #0e6424;
+}
+
+/* Modal */
+.modal-bg {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.6);
+  display: none;
+  justify-content: center;
+  align-items: center;
+  z-index: 1500;
+}
+
+.modal-bg.active { display: flex; }
+
+.modal-content {
+  background: #fff;
+  border-radius: 12px;
+  padding: 2rem;
+  max-width: 400px;
+  width: 90%;
+  text-align: center;
+  position: relative;
+}
+
+.modal-content p {
+  margin-bottom: 1rem;
+  font-weight: 600;
+  color: #000;
+}
+
+.modal-content button {
+  background: #0e6424;
+  color: white;
+  padding: 0.8rem 1.4rem;
+  border: none;
+  border-radius: 8px;
+  font-size: 1rem;
+  cursor: pointer;
+  font-weight: 600;
+  margin-top: 0.5rem;
+}
+
+.modal-content button:hover { background: #0e6424; }
+
+.modal-close {
+  position: absolute;
+  top: 10px;
+  right: 15px;
+  background: transparent;
+  border: none;
+  font-size: 1.5rem;
+  cursor: pointer;
+  color: #999;
+  transition: color 0.3s;
+}
+
+.modal-close:hover { color: #333; }
+</style>
+
+
+ <div class="modal-bg" id="form-modal">
+  <div class="modal-content">
+    <button class="modal-close" id="modal-close">&times;</button>
+    <p id="modal-message">Mensagem do popup</p>
+  </div>
+</div> 
+
+<footer>
+  <div class="footer-container">
+    <!-- Coluna 1: Logo -->
+    <div class="footer-col footer-logo">
+      <img src="Imagens/tudonossologo.png" alt="Logo É Tudo Nosso">
+      <p>&copy; É Tudo Nosso — Todos os direitos reservados.</p>
+    </div>
+
+    <!-- Coluna 2: Contatos -->
+    <div class="footer-col footer-contato">
+      <p><i class="fas fa-map-marker-alt"></i> Rua Aristides Pires de Andrade, 92 - Itapecerica da Serra/SP</p>
+      <p><i class="fas fa-phone"></i> (11) 99563-7530</p>
+      <p><i class="fas fa-envelope"></i> espacotudonosso@gmail.com</p>
+    </div>
+
+    <!-- Coluna 3: Redes sociais -->
+    <div class="footer-col footer-redes">
+      <a href="https://www.instagram.com/espacoetudonosso" target="_blank"><i class="fab fa-instagram"></i></a>
+      <a href="https://www.facebook.com/tudonossosim" target="_blank"><i class="fab fa-facebook"></i></a>
+      <a href="https://wa.me/5511995637530" target="_blank" rel="noopener noreferrer"><i class="fab fa-whatsapp"></i></a>
+    </div>
   </div>
 </footer>
 
 
+
   <!-- Botão WhatsApp fixo -->
-  <a href="https://wa.me/5598999999999" target="_blank" rel="noopener" class="whatsapp-button" aria-label="Contato pelo WhatsApp">
-    <i class="fab fa-whatsapp"></i>
-  </a>
+<a href="https://wa.me/5511995637530" target="_blank" rel="noopener noreferrer" class="whatsapp-button" aria-label="WhatsApp">
+  <i class="fab fa-whatsapp"></i>
+</a>
 
   <!-- Botão toggle tema -->
   <button id="theme-toggle" aria-label="Alternar tema claro e escuro" title="Alternar tema">
     <i class="fas fa-moon"></i>
   </button>
 
-  <script>
-    // Menu Mobile
-    const menuToggle = document.getElementById('menu-toggle');
-    const navLinks = document.querySelector('nav ul');
+ <script>
+  // Menu Mobile
+  const menuToggle = document.getElementById('menu-toggle');
+  const navLinks = document.querySelector('nav ul');
 
-    menuToggle.addEventListener('click', () => {
-      navLinks.classList.toggle('show');
-      menuToggle.classList.toggle('active');
-      if(navLinks.classList.contains('show')) {
-        menuToggle.setAttribute('aria-label', 'Fechar menu');
-      } else {
-        menuToggle.setAttribute('aria-label', 'Abrir menu');
-      }
-    });
-
-    // Tema Claro/Escuro
-    const themeToggle = document.getElementById('theme-toggle');
-    const html = document.documentElement;
-
-    function updateIcon() {
-      if (html.getAttribute('data-theme') === 'dark') {
-        themeToggle.innerHTML = '<i class="fas fa-sun"></i>'; // ícone sol para escuro
-      } else {
-        themeToggle.innerHTML = '<i class="fas fa-moon"></i>'; // ícone lua para claro
-      }
-    }
-
-    themeToggle.addEventListener('click', () => {
-      const currentTheme = html.getAttribute('data-theme');
-      const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
-      html.setAttribute('data-theme', newTheme);
-      localStorage.setItem('theme', newTheme);
-      updateIcon();
-    });
-
-    // Ao carregar, aplicar tema salvo no localStorage (ou padrão dark)
-    const savedTheme = localStorage.getItem('theme');
-    if (savedTheme) {
-      html.setAttribute('data-theme', savedTheme);
+  menuToggle.addEventListener('click', () => {
+    navLinks.classList.toggle('show');
+    menuToggle.classList.toggle('active');
+    if(navLinks.classList.contains('show')) {
+      menuToggle.setAttribute('aria-label', 'Fechar menu');
     } else {
-      html.setAttribute('data-theme', 'dark');
+      menuToggle.setAttribute('aria-label', 'Abrir menu');
     }
+  });
+
+  // Tema Claro/Escuro
+  const themeToggle = document.getElementById('theme-toggle');
+  const html = document.documentElement;
+
+  function updateIcon() {
+    if (html.getAttribute('data-theme') === 'dark') {
+      themeToggle.innerHTML = '<i class="fas fa-sun"></i>';
+    } else {
+      themeToggle.innerHTML = '<i class="fas fa-moon"></i>';
+    }
+  }
+
+  themeToggle.addEventListener('click', () => {
+    const currentTheme = html.getAttribute('data-theme');
+    const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+    html.setAttribute('data-theme', newTheme);
+    localStorage.setItem('theme', newTheme);
     updateIcon();
-  </script>
+  });
+
+  const savedTheme = localStorage.getItem('theme');
+  if (savedTheme) {
+    html.setAttribute('data-theme', savedTheme);
+  } else {
+    html.setAttribute('data-theme', 'dark');
+  }
+  updateIcon();
+
+  // Captura do formulário e modal
+  const form = document.querySelector('.form-voluntario');
+  const modal = document.getElementById('form-modal');
+  const modalMessage = document.getElementById('modal-message');
+  const modalClose = document.getElementById('modal-close');
+
+  const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbwMTFBBr6tq0G7qeM9XWExmVA6SW5q8YL83kgs8Kru8gYkcrzu6oAfERVDkaPMlRt_rXg/exec";
+
+  form.addEventListener('submit', function(e) {
+    e.preventDefault(); // evita envio padrão e recarregamento
+    const formData = new FormData(form);
+
+    fetch(SCRIPT_URL, {
+      method: 'POST',
+      body: formData
+    })
+    .then(response => response.json()) // tratar como JSON
+    .then(data => {
+      modalMessage.textContent = data.mensagem;
+      modal.classList.add('active');
+      if(data.status === "sucesso") {
+        form.reset();
+      }
+    })
+    .catch(error => {
+      console.error(error);
+      modalMessage.textContent = "Erro de conexão. Verifique sua internet.";
+      modal.classList.add('active');
+    });
+  });
+
+  // Fechar modal
+  modalClose.addEventListener('click', () => modal.classList.remove('active'));
+  modal.addEventListener('click', (e) => {
+    if(e.target === modal) modal.classList.remove('active');
+  });
+</script>
+<script>
+  // Máscara para CPF
+  const cpfInput = document.getElementById('cpf');
+  cpfInput.addEventListener('input', function(e) {
+    let v = this.value.replace(/\D/g, ''); // remove tudo que não for número
+    if(v.length > 11) v = v.slice(0,11);  // limita a 11 dígitos
+    v = v.replace(/(\d{3})(\d)/, '$1.$2');
+    v = v.replace(/(\d{3})(\d)/, '$1.$2');
+    v = v.replace(/(\d{3})(\d{1,2})$/, '$1-$2');
+    this.value = v;
+  });
+
+  // Máscara para RG
+  const rgInput = document.getElementById('rg');
+  rgInput.addEventListener('input', function(e) {
+    let v = this.value.replace(/\D/g, ''); // remove tudo que não for número
+    if(v.length > 9) v = v.slice(0,9);     // limita a 9 dígitos
+    v = v.replace(/(\d{2})(\d)/, '$1.$2');
+    v = v.replace(/(\d{3})(\d)/, '$1.$2');
+    v = v.replace(/(\d{3})(\d{1})$/, '$1-$2');
+    this.value = v;
+  });
+
+  // Máscara para telefone (com DDD)
+  const telefoneInput = document.getElementById('telefone');
+  telefoneInput.addEventListener('input', function(e) {
+    let v = this.value.replace(/\D/g, ''); // remove tudo que não for número
+    if(v.length > 11) v = v.slice(0,11);   // limita a 11 dígitos
+    v = v.replace(/^(\d{2})(\d)/g, '($1) $2');
+    v = v.replace(/(\d{5})(\d{4})$/, '$1-$2');
+    this.value = v;
+  });
+</script>
+
+  
 </body>
 </html>

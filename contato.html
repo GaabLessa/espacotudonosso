@@ -194,7 +194,7 @@ header {
     font-weight: 600;
   }
   .modal-content button {
-    background: #005bac;
+    background:#008000;
     color: white;
     padding: 0.8rem 1.4rem;
     border: none;
@@ -205,7 +205,7 @@ header {
     transition: background 0.3s ease;
   }
   .modal-content button:hover {
-    background: #003d7a;
+    background: #008000;
   }
   .modal-close {
     position: absolute;
@@ -294,7 +294,7 @@ nav ul {
 #menu-toggle.active .hamburger,
 #menu-toggle.active .hamburger::before,
 #menu-toggle.active .hamburger::after {
-  background-color: #f10f0f; /* amarelo bonito */
+  background-color: #ffffff; /* amarelo bonito */
 }
 
 /* Estilos mobile */
@@ -303,7 +303,7 @@ nav ul {
   nav ul {
     display: none; /* esconde o menu padrão */
     flex-direction: column;
-    background-color: #005bac;
+    background-color: #008000;
     position: fixed;
     top: 60px; /* altura do header */
     right: 0;
@@ -772,48 +772,90 @@ body.light-mode .card-mapa {
       color: #cfd8ff;
       box-shadow: none;
     }
-    footer {
-    background-color: #008000;
-    width: 100vw;
-    padding: 20px;
-    color: #fff;
-    display: flex;
-    flex-direction: column;    /* organiza os itens em coluna */
-    align-items: center;       /* centraliza horizontalmente */
-    gap: 15px;                 /* espaço entre logo/texto e redes sociais */
-    font-size: 18px;
+footer {
+  background-color: #008000;
+  color: #fff;
+  padding: 30px 20px;
+  font-size: 16px;
 }
 
-footer .é-tudo-nosso {
-    display: flex;
-    align-items: center;       /* centraliza verticalmente texto em relação à logo */
-    gap: 10px;                 /* espaço entre logo e texto */
+footer .footer-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  max-width: 1100px;
+  margin: 0 auto;
+  flex-wrap: wrap; /* permite quebra suave em telas muito pequenas */
+  gap: 30px;
 }
 
-footer .é-tudo-nosso img {
-    max-height: 100px;
-    border-radius: 30%;
+/* Cada coluna */
+footer .footer-col {
+  flex: 1 1 250px; /* largura mínima 250px */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 12px;
 }
 
-footer .é-tudo-nosso p {
-    margin: 0;
+/* Logo */
+footer .footer-logo img {
+  max-height: 60px;
+  width: auto;
+  border-radius: 30%;
 }
 
-footer .redes-sociais {
-    display: flex;
-    gap: 15px;
+/* Contatos */
+footer .footer-contato p {
+  margin: 6px 0;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  justify-content: center;
 }
 
-footer .redes-sociais a {
-    color: #fff;
-    font-size: 32px;           /* ícones maiores */
-    text-decoration: none;
-    transition: transform 0.3s;
+footer .footer-contato i {
+  font-size: 18px;
+  color: #fff;
 }
 
-footer .redes-sociais a:hover {
-    transform: scale(1.2);     /* efeito hover */
-    color: #000000;
+/* Redes sociais */
+footer .footer-redes {
+  display: flex;
+  gap: 15px;
+}
+
+footer .footer-redes a {
+  color: #fff;
+  font-size: 28px;
+  transition: transform 0.3s, color 0.3s;
+}
+
+footer .footer-redes a:hover {
+  transform: scale(1.2);
+  color: #000;
+}
+
+/* Mobile suave */
+@media (max-width: 768px) {
+  footer .footer-col {
+    flex: 1 1 45%; /* duas colunas lado a lado */
+  }
+}
+
+@media (max-width: 480px) {
+  footer .footer-col {
+    flex: 1 1 100%; /* uma coluna por linha no celular pequeno */
+  }
+
+  footer .footer-redes a {
+    font-size: 24px; /* ícones um pouco menores */
+  }
+
+  footer .footer-contato p {
+    font-size: 14px; /* textos menores para caber */
+  }
 }
 
 </style>
@@ -833,7 +875,7 @@ footer .redes-sociais a:hover {
     <ul>
       <li><a href="index.html">Início</a></li>
       <li><a href="index.html#sobre">Sobre</a></li>
-      <li><a href="#">Ações Sociais</a></li>
+      <li><a href="acoes.html">Ações Sociais</a></li>
       <li><a href="doacao.html">Doações</a></li>
       <li><a href="voluntariado.html">Voluntariado</a></li>
       <li><a href="contato.html">Contato</a></li>
@@ -895,22 +937,39 @@ footer .redes-sociais a:hover {
     </div>
   </div>
   <div class="card-mapa">
-    <iframe 
-      src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3656.938188460063!2d-46.84200348494922!3d-23.71429988467214!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x94ce50bb5c8ce983%3A0x2d26e57632a00e45!2sR.%20Clotilde%20de%20Louro%2C%20743%20-%20Vila%20Louro%2C%20Embu-Gua%C3%A7u%20-%20SP%2C%2006900-185!5e0!3m2!1spt-BR!2sbr!4v1688123456789!5m2!1spt-BR!2sbr" 
-      width="100%" height="300" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+    <iframe
+      src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3654.197099524925!2d-46.847228924708255!3d-23.667586478738636!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x94ce53dfef802805%3A0x35c4c79d8b0bc3e4!2sR.+Aristides+Pires+de+Andrade,+92+-+Itapecerica+da+Serra,+SP,+Brazil,+06867-650!5e0!3m2!1spt-BR!2sbr!4v1721830891013!5m2!1spt-BR!2sbr"
+      allowfullscreen=""
+      loading="lazy"
+      referrerpolicy="no-referrer-when-downgrade">
+    </iframe>
+    <a class="mapa-botao" href="https://www.google.com/maps/place/Rua+Aristides+Pires+de+Andrade,+92,+Itapecerica+da+Serra,+SP,+Brazil,+06867-650" target="_blank">Abrir no Google Maps</a>
   </div>
 </section>
 
 
   
 <footer>
-  <div class="é-tudo-nosso">
-    <img src="Imagens/tudonossologo.png" alt="">
-    <p>&copy; É Tudo Nosso — Todos os direitos reservados.</p>
-  </div>
-  <div class="redes-sociais">
-    <a href="https://www.instagram.com/espacoetudonosso" target="_blank"><i class="fab fa-instagram"></i></a>
-    <a href="https://https://www.facebook.com/tudonossosim" target="_blank"><i class="fab fa-facebook"></i></a>
+  <div class="footer-container">
+    <!-- Coluna 1: Logo -->
+    <div class="footer-col footer-logo">
+      <img src="Imagens/tudonossologo.png" alt="Logo É Tudo Nosso">
+      <p>&copy; É Tudo Nosso — Todos os direitos reservados.</p>
+    </div>
+
+    <!-- Coluna 2: Contatos -->
+    <div class="footer-col footer-contato">
+      <p><i class="fas fa-map-marker-alt"></i> Rua Aristides Pires de Andrade, 92 - Itapecerica da Serra/SP</p>
+      <p><i class="fas fa-phone"></i> (11) 99563-7530</p>
+      <p><i class="fas fa-envelope"></i> espacotudonosso@gmail.com</p>
+    </div>
+
+    <!-- Coluna 3: Redes sociais -->
+    <div class="footer-col footer-redes">
+      <a href="https://www.instagram.com/espacoetudonosso" target="_blank"><i class="fab fa-instagram"></i></a>
+      <a href="https://www.facebook.com/tudonossosim" target="_blank"><i class="fab fa-facebook"></i></a>
+      <a href="https://wa.me/5511995637530" target="_blank"><i class="fab fa-whatsapp"></i></a>
+    </div>
   </div>
 </footer>
 
@@ -919,6 +978,7 @@ footer .redes-sociais a:hover {
   <a href="https://wa.me/5598999999999" target="_blank" rel="noopener" class="whatsapp-button" aria-label="Contato pelo WhatsApp">
     <i class="fab fa-whatsapp"></i>
   </a>
+
 
   <!-- Botão toggle tema -->
   <button id="theme-toggle" aria-label="Alternar tema claro e escuro" title="Alternar tema">
